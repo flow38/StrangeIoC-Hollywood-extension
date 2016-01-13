@@ -1,18 +1,20 @@
 ﻿using falcy.strange.extensions.hollywood.api;
+using strange.extensions.mediation.impl;
 using UnityEngine;
 
-namespace falcy.strange.extensions.hollywood.impl
+namespace falcy.strange.extension.hollywood.impl
 {
-    public class Actor : MonoBehaviour, IActor
+    public class Actor : View, IActor
     {
         /// <summary>
         /// Cached GameObject Transform component
         /// </summary>
         protected Transform MyTransform;
-        
-        public void Awake()
+
+        protected override void Awake()
         {
             MyTransform = transform;
+            base.Awake();
         }
 
         public Vector3 GetPosition()

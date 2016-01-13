@@ -27,6 +27,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using falcy.strange.extension.hollywood.api;
 using falcy.strange.extensions.hollywood.api;
 using strange.extensions.command.api;
 using UnityEngine;
@@ -39,7 +40,7 @@ using Binder = strange.framework.impl.Binder;
 
 namespace falcy.strange.extensions.hollywood.impl
 {
-    public class DirectorBinder : Binder, IMediationBinder
+    public class DirectorBinder : Binder, IDirectorBinder
     {
 
         [Inject]
@@ -55,23 +56,23 @@ namespace falcy.strange.extensions.hollywood.impl
 
         public override IBinding GetRawBinding()
         {
-            return null;//new DirectorBinding(resolver) as IBinding;
+            return new MediationBinding(resolver) as IBinding;
         }
 
-        public void Trigger(MediationEvent evt, IView view)
+        public void Trigger(MediationEvent evt, IActor actor)
         {
-            Type viewType = view.GetType();
+            Type viewType = actor.GetType();
             IMediationBinding binding = GetBinding(viewType) as IMediationBinding;
             if (binding != null)
             {
                 switch (evt)
                 {
                     case MediationEvent.AWAKE:
-                        injectViewAndChildren(view);
-                        mapView(view, binding);
+                        injectActorAndChildren(actor);
+                        mapView(actor, binding);
                         break;
                     case MediationEvent.DESTROYED:
-                        unmapView(view, binding);
+                        unmapActor(actor, binding);
                         break;
                     default:
                         break;
@@ -80,31 +81,32 @@ namespace falcy.strange.extensions.hollywood.impl
             else if (evt == MediationEvent.AWAKE)
             {
                 //Even if not mapped, Views (and their children) have potential to be injected
-                injectViewAndChildren(view);
+                injectActorAndChildren(actor);
             }
         }
 
-        /// Initialize all IViews within this view
-        protected virtual void injectViewAndChildren(IView view)
+        /// Initialize all IActor within an actor instance
+        protected virtual void injectActorAndChildren(IActor actor)
         {
-            MonoBehaviour mono = view as MonoBehaviour;
-            Component[] views = mono.GetComponentsInChildren(typeof(IView), true) as Component[];
+            MonoBehaviour mono = actor as MonoBehaviour;
+            Component[] actors = mono.GetComponentsInChildren(typeof(IActor), true) as Component[];
 
-            int aa = views.Length;
+            int aa = actors.Length;
             for (int a = aa - 1; a > -1; a--)
             {
-                IView iView = views[a] as IView;
-                if (iView != null)
+                IActor anActor = actors[a] as IActor;
+                if (anActor != null)
                 {
-                    if (iView.autoRegisterWithContext && iView.registeredWithContext)
+                    if (anActor.autoRegisterWithContext && anActor.registeredWithContext)
                     {
                         continue;
                     }
-                    iView.registeredWithContext = true;
-                    if (iView.Equals(mono) == false)
-                        Trigger(MediationEvent.AWAKE, iView);
+                    anActor.registeredWithContext = true;
+                    if (anActor.Equals(mono) == false)
+                        Trigger(MediationEvent.AWAKE, anActor);
                 }
             }
+            //
             injectionBinder.injector.Inject(mono, false);
         }
 
@@ -118,11 +120,12 @@ namespace falcy.strange.extensions.hollywood.impl
             return base.Bind<T>() as IMediationBinding;
         }
 
-        /// Creates and registers one or more Mediators for a specific View instance.
-        /// Takes a specific View instance and a binding and, if a binding is found for that type, creates and registers a Mediator.
-        virtual protected void mapView(IView view, IMediationBinding binding)
+        /// Creates and registers one or more Director for a specific Actor instance.
+        /// Please note that in this extansion's way of thinking, an Actor has one and only one Director.
+        /// Takes a specific Actor instance and a binding and, if a binding is found for that type, creates and registers a Director.
+        protected virtual void mapView(IActor actor, IMediationBinding binding)
         {
-            Type viewType = view.GetType();
+            Type viewType = actor.GetType();
 
             if (bindings.ContainsKey(viewType))
             {
@@ -130,13 +133,12 @@ namespace falcy.strange.extensions.hollywood.impl
                 int aa = values.Length;
                 for (int a = 0; a < aa; a++)
                 {
-                    MonoBehaviour mono = view as MonoBehaviour;
+                    MonoBehaviour mono = actor as MonoBehaviour;
                     Type mediatorType = values[a] as Type;
                     if (mediatorType == viewType)
                     {
                        // throw new HollywoodException(viewType + "mapped to itself. The result would be a stack overflow.", HollywoodExceptionType.IMPLICIT_BINDING_MEDIATOR_TYPE_IS_NULL).MEDIATOR_VIEW_STACK_OVERFLOW);
                     }
-
                     
                     injectionBinder.Bind<IDirector>().To(mediatorType);
                     IDirector director = injectionBinder.GetInstance<IDirector>();
@@ -144,11 +146,11 @@ namespace falcy.strange.extensions.hollywood.impl
                     ((IDirector)director).PreRegister();
 
                     Type typeToInject = (binding.abstraction == null || binding.abstraction.Equals(BindingConst.NULLOID)) ? viewType : binding.abstraction as Type;
-                    injectionBinder.Bind(typeToInject).ToValue(view).ToInject(false);
+                    injectionBinder.Bind(typeToInject).ToValue(actor).ToInject(false);
                     injectionBinder.injector.Inject(director);
                     injectionBinder.Unbind(typeToInject);
                     ((IMediator)director).OnRegister();
-                    registerDirector(view, director);
+                    registerDirector(actor, director);
                 }
             }
         }
@@ -160,19 +162,22 @@ namespace falcy.strange.extensions.hollywood.impl
             directory[actor].Add(director);
         }
 
-        /// Removes a mediator when its view is destroyed
-        virtual protected void unmapView(IActor actor, IMediationBinding binding)
+        /// Removes a mediator when its actor is destroyed
+        virtual protected void unmapActor(IActor actor, IMediationBinding binding)
         {
-            Type viewType = actor.GetType();
+            Type actorType = actor.GetType();
 
-            if (bindings.ContainsKey(viewType))
+            if (bindings.ContainsKey(actorType))
             {
-                
-                for (int i = 0; i < in; i++)
+                int length = directory[actor].Count;
+                for (int i = 0; i < length; i++)
                 {
-                    
+                    directory[actor][i].OnRemove();
                 }
             }
+            //remove reference to IActor and IDirector instances to allow gc 
+            directory[actor].Clear();
+            directory.Remove(actor);
         }
 
         private void enableView(IView view)

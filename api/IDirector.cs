@@ -9,7 +9,7 @@
 
         /// This method fires immediately after injection.
         /// Override to perform the actions you might normally perform in a constructor.
-        void OnRegister();
+        void OnRegister(IActor actor);
 
         /// This method fires just before Director's actor instance will be destroyed.
         /// Override to clean up any listeners, or anything else that might keep the Actor/Director pair from being garbage collected.

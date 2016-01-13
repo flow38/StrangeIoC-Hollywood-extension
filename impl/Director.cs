@@ -2,27 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using falcy.strange.extensions.hollywood.api;
+using falcy.strange.extensions.hollywood.impl;
+using strange.extensions.context.api;
+using strange.extensions.dispatcher.eventdispatcher.api;
+using strange.extensions.signal.api;
 
-namespace falcy.strange.extensions.hollywood.impl
+namespace falcy.strange.extension.hollywood.impl
 {
-    class Director : IDirector
+    class Director : BaseDirector
     {
-        public void PreRegister()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void OnRegister()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void OnRemove()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IActor Actor { get; set; }
+        [Inject(ContextKeys.CONTEXT_DISPATCHER)]
+        public IEventDispatcher dispatcher { get; set; }
     }
 }

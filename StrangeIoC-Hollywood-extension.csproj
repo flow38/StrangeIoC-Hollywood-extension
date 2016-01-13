@@ -33,7 +33,6 @@
     <RootNamespace>falcy.strange.extension.hollywood</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Moq, Version=4.2.1510.2205, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <HintPath>packages\Moq.4.2.1510.2205\lib\net35\Moq.dll</HintPath>
       <Private>True</Private>
@@ -80,17 +79,15 @@
     <Content Include=".gitignore" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="api\HollywoodExceptionType.cs" />
     <Compile Include="api\IActor.cs" />
     <Compile Include="api\IDirector.cs" />
     <Compile Include="api\IDirectorBinder.cs" />
-    <Compile Include="api\IDirectorBinding.cs" />
     <Compile Include="api\IRegisteredDirector.cs" />
     <Compile Include="impl\Actor.cs" />
-    <Compile Include="impl\Director.cs" />
+    <Compile Include="impl\BaseDirector.cs" />
     <Compile Include="impl\DirectorBinder.cs" />
-    <Compile Include="impl\DirectorBinding.cs" />
-    <Compile Include="impl\HollywoodException.cs" />
+    <Compile Include="impl\HollywoodContext.cs" />
+    <Compile Include="impl\Director.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include=".git\" />
