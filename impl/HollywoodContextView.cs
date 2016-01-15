@@ -13,22 +13,16 @@
  *		See the License for the specific language governing permissions and
  *		limitations under the License.
  */
-
 using falcy.strange.extension.hollywood.api;
-using UnityEngine;
+using strange.extensions.context.impl;
 
-namespace falcy.strange.extensions.hollywood.api
+/// <summary>
+/// A context in an Hollywood project must realize HollywoodContextView
+/// </summary>
+
+namespace falcy.strange.extension.hollywood.impl
 {
-    public interface IActor : IHollywoodView
+    public abstract class HollywoodContextView : ContextView, IHollywoodView
     {
-        /// <summary>
-        /// </summary>
-        /// <returns>Position in world space</returns>
-        Vector3 GetPosition();
-
-        /// <summary>
-        /// </summary>
-        /// <param name="pos">Position in world space</param>
-        void SetPosition(Vector3 pos);
     }
 }

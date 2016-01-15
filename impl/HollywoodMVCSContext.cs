@@ -14,21 +14,32 @@
  *		limitations under the License.
  */
 
-using falcy.strange.extension.hollywood.api;
+using System;
 using falcy.strange.extensions.hollywood.impl;
 using strange.extensions.command.api;
 using strange.extensions.command.impl;
+using strange.extensions.context.api;
 using strange.extensions.context.impl;
 using strange.extensions.mediation.api;
+using UnityEngine;
 
 /// <summary>
 ///  TODO : replace crossContext event dispatcher by a Signal<String> 
 /// 
 /// </summary>
+
 namespace falcy.strange.extension.hollywood.impl
 {
-    public class HollywoodContext : MVCSContext
+    public class HollywoodMVCSContext : MVCSContext
     {
+        public HollywoodMVCSContext(MonoBehaviour view) : base(view)
+        {
+        }
+
+        public HollywoodMVCSContext(MonoBehaviour view, ContextStartupFlags flags) : base(view, flags)
+        {
+        }
+
         // Unbind the default EventCommandBinder and rebind the SignalCommandBinder
         protected override void addCoreComponents()
         {
@@ -38,7 +49,32 @@ namespace falcy.strange.extension.hollywood.impl
 
             //Replace Mediation binding by Director binding
             injectionBinder.Unbind<IMediationBinder>();
-            injectionBinder.Bind<IDirectorBinder>().To<DirectorBinder>();
+            injectionBinder.Bind<IMediationBinder>().To<DirectorBinder>();
+        }
+
+        public override void AddView(object view)
+        {
+            if (mediationBinder != null)
+            {
+                mediationBinder.Trigger(MediationEvent.AWAKE, (IView) view);
+            }
+            else
+            {
+                cacheView(view as MonoBehaviour);
+            }
+        }
+
+        protected override void postBindings()
+        {
+            //It's possible for views to fire their Awake before bindings. This catches any early risers and attaches their Mediators.
+            mediateViewCache();
+            //Ensure that all Views underneath the ContextView are triggered
+            var contView = (contextView as GameObject).GetComponent<ContextView>();
+            if (contView == null)
+            {
+                Console.WriteLine("ccccc");
+            }
+            mediationBinder.Trigger(MediationEvent.AWAKE, contView);
         }
     }
 }

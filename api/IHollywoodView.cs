@@ -13,22 +13,14 @@
  *		See the License for the specific language governing permissions and
  *		limitations under the License.
  */
+using strange.extensions.mediation.api;
 
-using falcy.strange.extension.hollywood.api;
-using UnityEngine;
-
-namespace falcy.strange.extensions.hollywood.api
+/// <summary>
+/// Abstraction layer to handle both Actor and HollywoodContextView as IView
+/// </summary>
+namespace falcy.strange.extension.hollywood.api
 {
-    public interface IActor : IHollywoodView
+    public interface IHollywoodView : IView
     {
-        /// <summary>
-        /// </summary>
-        /// <returns>Position in world space</returns>
-        Vector3 GetPosition();
-
-        /// <summary>
-        /// </summary>
-        /// <param name="pos">Position in world space</param>
-        void SetPosition(Vector3 pos);
     }
 }
