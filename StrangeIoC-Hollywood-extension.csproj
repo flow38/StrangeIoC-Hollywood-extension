@@ -9,8 +9,7 @@
     <AssemblyName>StrangeIoC-Hollywood-extension</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
+    <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -32,39 +31,16 @@
   <PropertyGroup>
     <RootNamespace>falcy.strange.extension.hollywood</RootNamespace>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Moq, Version=4.2.1510.2205, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
-      <HintPath>packages\Moq.4.2.1510.2205\lib\net35\Moq.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NFluent, Version=1.3.1.0, Culture=neutral, PublicKeyToken=18828b37b84b1437, processorArchitecture=MSIL">
-      <HintPath>packages\NFluent.1.3.1.0\lib\net35\NFluent.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="nunit.core, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <HintPath>packages\NUnitTestAdapter.2.0.0\lib\nunit.core.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="nunit.core.interfaces, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <HintPath>packages\NUnitTestAdapter.2.0.0\lib\nunit.core.interfaces.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="nunit.framework, Version=3.0.5813.39033, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>packages\NUnit.3.0.1\lib\net20\nunit.framework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="nunit.util, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <HintPath>packages\NUnitTestAdapter.2.0.0\lib\nunit.util.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="NUnit.VisualStudio.TestAdapter, Version=2.0.0.0, Culture=neutral, PublicKeyToken=4cb40d35494691ac, processorArchitecture=MSIL">
-      <HintPath>packages\NUnitTestAdapter.2.0.0\lib\NUnit.VisualStudio.TestAdapter.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="StrangeIoC">
+      <HintPath>..\StrangeIoC\bin\Debug\StrangeIoC.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="UnityEditor">
@@ -81,28 +57,27 @@
   <ItemGroup>
     <Compile Include="api\IActor.cs" />
     <Compile Include="api\IDirector.cs" />
-    <Compile Include="api\IDirectorBinder.cs" />
+    <Compile Include="api\IHollywoodView.cs" />
     <Compile Include="api\IRegisteredDirector.cs" />
     <Compile Include="impl\Actor.cs" />
     <Compile Include="impl\BaseDirector.cs" />
     <Compile Include="impl\DirectorBinder.cs" />
-    <Compile Include="impl\HollywoodContext.cs" />
+    <Compile Include="impl\HollywoodContextView.cs" />
+    <Compile Include="impl\HollywoodMVCSContext.cs" />
     <Compile Include="impl\Director.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include=".git\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\StrangeIoC\StrangeIoC.csproj">
-      <Project>{0f41b8c9-a75b-4e49-b3b6-0965c763a33a}</Project>
-      <Name>StrangeIoC</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>
     <VisualStudio AllowExistingFolder="true" />
   </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /Q /Y "$(TargetDir)$(TargetName).dll" "C:\Users\Florent\Desktop\PROJETS\Unity3D\StrangeIoCHollywoodIntegrationTest\Assets"
+xcopy /Q /Y "$(TargetDir)$(TargetName).pdb"  "C:\Users\Florent\Desktop\PROJETS\Unity3D\StrangeIoCHollywoodIntegrationTest\Assets"
+xcopy /Q /Y "$(TargetDir)StrangeIoC.dll"  "C:\Users\Florent\Desktop\PROJETS\Unity3D\StrangeIoCHollywoodIntegrationTest\Assets"
+xcopy /Q /Y "$(TargetDir)StrangeIoC.pdb" "C:\Users\Florent\Desktop\PROJETS\Unity3D\StrangeIoCHollywoodIntegrationTest\Assets"</PostBuildEvent>
+  </PropertyGroup>
 </Project>

@@ -44,12 +44,14 @@ namespace falcy.strange.extension.hollywood.impl
         protected override void addCoreComponents()
         {
             base.addCoreComponents();
+
+            //Replace Event to Command binding by a Signal to Command binding
             injectionBinder.Unbind<ICommandBinder>();
             injectionBinder.Bind<ICommandBinder>().To<SignalCommandBinder>().ToSingleton();
 
             //Replace Mediation binding by Director binding
             injectionBinder.Unbind<IMediationBinder>();
-            injectionBinder.Bind<IMediationBinder>().To<DirectorBinder>();
+            injectionBinder.Bind<IMediationBinder>().To<DirectorBinder>().ToSingleton();
         }
 
         public override void AddView(object view)
