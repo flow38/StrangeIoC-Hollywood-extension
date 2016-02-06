@@ -55,6 +55,7 @@
     <Content Include=".gitignore" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="api\HollywoodExceptionType.cs" />
     <Compile Include="api\IActor.cs" />
     <Compile Include="api\IDirector.cs" />
     <Compile Include="api\IHollywoodView.cs" />
@@ -63,8 +64,10 @@
     <Compile Include="impl\BaseDirector.cs" />
     <Compile Include="impl\DirectorBinder.cs" />
     <Compile Include="impl\HollywoodContextView.cs" />
+    <Compile Include="impl\HollywoodException.cs" />
     <Compile Include="impl\HollywoodMVCSContext.cs" />
     <Compile Include="impl\Director.cs" />
+    <Compile Include="impl\LaunchAppSignal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -75,9 +78,13 @@
     <VisualStudio AllowExistingFolder="true" />
   </ProjectExtensions>
   <PropertyGroup>
-    <PostBuildEvent>xcopy /Q /Y "$(TargetDir)$(TargetName).dll" "$(TargetDir)\..\..\..\UnityIntegrationTest\Assets"
-xcopy /Q /Y "$(TargetDir)$(TargetName).pdb" "$(TargetDir)\..\..\..\UnityIntegrationTest\Assets"
-xcopy /Q /Y "$(TargetDir)StrangeIoC.dll"  "$(TargetDir)\..\..\..\UnityIntegrationTest\Assets"
-xcopy /Q /Y "$(TargetDir)StrangeIoC.pdb" "C:\Users\Florent\Desktop\PROJETS\Unity3D\StrangeIoCHollywoodIntegrationTest\Assets"</PostBuildEvent>
+    <PostBuildEvent>xcopy /Q /Y "$(TargetDir)$(TargetName).dll" "$(TargetDir)\..\..\..\UnityIntegrationTest\Assets\External"
+xcopy /Q /Y "$(TargetDir)$(TargetName).pdb" "$(TargetDir)\..\..\..\UnityIntegrationTest\Assets\External"
+xcopy /Q /Y "$(TargetDir)StrangeIoC.dll"  "$(TargetDir)\..\..\..\UnityIntegrationTest\Assets\External"
+xcopy /Q /Y "$(TargetDir)StrangeIoC.pdb"  "$(TargetDir)\..\..\..\UnityIntegrationTest\Assets\External"
+xcopy /Q /Y "$(TargetDir)$(TargetName).dll" "$(TargetDir)\..\..\..\..\..\Unity3D\ProjetLuminos\Assets\External"
+xcopy /Q /Y "$(TargetDir)$(TargetName).pdb" "$(TargetDir)\..\..\..\..\..\Unity3D\ProjetLuminos\Assets\External"
+xcopy /Q /Y "$(TargetDir)StrangeIoC.dll"  "$(TargetDir)\..\..\..\..\..\Unity3D\ProjetLuminos\Assets\External"
+xcopy /Q /Y "$(TargetDir)StrangeIoC.pdb"  "$(TargetDir)\..\..\..\..\..\Unity3D\ProjetLuminos\Assets\External"</PostBuildEvent>
   </PropertyGroup>
 </Project>

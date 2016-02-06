@@ -14,11 +14,14 @@
  *		limitations under the License.
  */
 
+using System;
 using strange.extensions.command.api;
 using strange.extensions.command.impl;
 using strange.extensions.context.api;
 using strange.extensions.context.impl;
+using strange.extensions.hollywood.api;
 using strange.extensions.mediation.api;
+using strange.extensions.signal.impl;
 using UnityEngine;
 
 /// <summary>
@@ -30,12 +33,16 @@ namespace strange.extensions.hollywood.impl
 {
     public class HollywoodMVCSContext : MVCSContext
     {
-        public HollywoodMVCSContext(MonoBehaviour view) : base(view)
+        protected LaunchAppSignal StartHollywood;
+
+        public HollywoodMVCSContext(MonoBehaviour view):base(view)
         {
+            
         }
 
         public HollywoodMVCSContext(MonoBehaviour view, ContextStartupFlags flags) : base(view, flags)
         {
+
         }
 
         // Unbind the default EventCommandBinder and rebind the SignalCommandBinder
@@ -71,6 +78,25 @@ namespace strange.extensions.hollywood.impl
             //Ensure that all Views underneath the ContextView are triggered
             var contView = (contextView as GameObject).GetComponent<ContextView>();
             mediationBinder.Trigger(MediationEvent.AWAKE, contView);
+        }
+
+        /// Fires StartHollywood
+		/// Whatever Command/Sequence you want to happen first should 
+		/// be mapped to this event.
+		public override void Launch()
+        {
+            Debug.Log("LAUUUUUNCH");
+            if (injectionBinder.GetBinding<LaunchAppSignal>() == null)
+            {
+                throw (
+                    new HollywoodException(
+                        "You must bind LaunchAppSignal Class to a command in order to boot your game, or set autoStartup to false !",
+                        HollywoodExceptionType.LaunchAppSignalIsNotBindToACommand
+                        )
+                    );
+            }
+
+            injectionBinder.GetInstance<LaunchAppSignal>().Dispatch();
         }
     }
 }
