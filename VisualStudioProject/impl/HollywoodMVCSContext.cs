@@ -85,7 +85,6 @@ namespace strange.extensions.hollywood.impl
 		/// be mapped to this event.
 		public override void Launch()
         {
-            Debug.Log("LAUUUUUNCH");
             if (injectionBinder.GetBinding<LaunchAppSignal>() == null)
             {
                 throw (
