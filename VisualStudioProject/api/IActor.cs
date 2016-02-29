@@ -29,5 +29,7 @@ namespace strange.extensions.hollywood.api
         /// </summary>
         /// <param name="pos">Position in world space</param>
         void SetPosition(Vector3 pos);
+
+        void AddChild(IActor child);
     }
 }

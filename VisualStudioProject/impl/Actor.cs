@@ -37,6 +37,12 @@ namespace strange.extensions.hollywood.impl
             MyTransform.position = pos;
         }
 
+        public void AddChild(IActor child)
+        {
+            var actor =  child as Actor;
+            actor.MyTransform.parent = MyTransform;
+        }
+
         protected override void Awake()
         {
             MyTransform = transform;
