@@ -135,9 +135,27 @@ namespace strange.extensions.hollywood.impl
                             MediationExceptionType.MEDIATOR_VIEW_STACK_OVERFLOW);
                     }
 
-                    injectionBinder.Bind<IDirector>().To(directorType);
-                    IDirector director = injectionBinder.GetInstance<IDirector>();
-                    injectionBinder.Unbind<IDirector>();
+                    //IDirector director = injectionBinder.GetInstance(directorType) as IDirector;
+                    IInjectionBinding bindingTest = injectionBinder.GetBinding(directorType, null) as IInjectionBinding;
+                    IDirector director;
+                    if (bindingTest == null)
+                    {
+                        //Default use case
+                        injectionBinder.Bind<IDirector>().To(directorType);
+                        director = injectionBinder.GetInstance<IDirector>();
+                        injectionBinder.Unbind<IDirector>();
+                    }
+                    else
+                    {
+                        //Actor is bind to an Interface...
+                        director = injectionBinder.GetInstance(directorType) as IDirector;
+                    }
+
+
+
+
+
+
                     if (director is IDirector)
                         director.PreRegister();
 
@@ -145,7 +163,7 @@ namespace strange.extensions.hollywood.impl
                         ? viewType
                         : binding.abstraction as Type;
                     injectionBinder.Bind(typeToInject).ToValue(hollyView).ToInject(false);
-                    injectionBinder.injector.Inject(director);
+                    injectionBinder.injector.Inject(director, false);
                     injectionBinder.Unbind(typeToInject);
 
                     if (director is IDirector)
