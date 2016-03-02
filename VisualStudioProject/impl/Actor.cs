@@ -16,6 +16,7 @@
 
 using strange.extensions.hollywood.api;
 using strange.extensions.mediation.impl;
+using strange.extensions.signal.impl;
 using UnityEngine;
 
 namespace strange.extensions.hollywood.impl
@@ -27,26 +28,67 @@ namespace strange.extensions.hollywood.impl
         /// </summary>
         protected Transform MyTransform;
 
-        public Vector3 GetPosition()
+        protected GameObject MyGameObject;
+
+#region getter/setter
+        public string Name
         {
-            return MyTransform.position;
+            get
+            {
+                return MyGameObject.name;
+            }
+            set
+            {
+                MyGameObject.name = value;
+            }
         }
 
-        public void SetPosition(Vector3 pos)
+        public Signal StartSignal
         {
-            MyTransform.position = pos;
+            get; set;
+        }
+
+#endregion
+
+        public Actor()
+        {
+            StartSignal = new Signal();
+        }
+
+
+        public Vector3 GetPosition(bool inWorldSpace = true)
+        {
+            if (inWorldSpace)
+                return MyTransform.position;
+            else
+                return MyTransform.localPosition;
+        }
+
+        public void SetPosition(Vector3 pos, bool inWorldSpace = true)
+        {
+            if (inWorldSpace)
+                MyTransform.position = pos;
+            else
+                MyTransform.localPosition = pos;
         }
 
         public void AddChild(IActor child)
         {
-            var actor =  child as Actor;
+            var actor = child as Actor;
             actor.MyTransform.parent = MyTransform;
         }
-
+        
         protected override void Awake()
         {
             MyTransform = transform;
+            MyGameObject = gameObject;
             base.Awake();
+        }
+
+        public void Start()
+        {
+            base.Start();
+            StartSignal.Dispatch();
         }
     }
 }

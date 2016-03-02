@@ -189,7 +189,17 @@ namespace strange.extensions.hollywood.impl
 
             if (bindings.ContainsKey(actorType))
             {
-                var length = directory[actor].Count;
+                int  length = 0;
+                try
+                {
+                     length = directory[actor].Count;
+                }
+                catch (Exception)
+                {
+                    
+                    var t =1;
+                }
+                
                 for (var i = 0; i < length; i++)
                 {
                     directory[actor][i].OnRemove();

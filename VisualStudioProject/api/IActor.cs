@@ -14,22 +14,32 @@
  *		limitations under the License.
  */
 
+using strange.extensions.signal.impl;
 using UnityEngine;
 
 namespace strange.extensions.hollywood.api
 {
     public interface IActor : IHollywoodView
     {
-        /// <summary>
-        /// </summary>
-        /// <returns>Position in world space</returns>
-        Vector3 GetPosition();
 
         /// <summary>
+        /// Get position
         /// </summary>
-        /// <param name="pos">Position in world space</param>
-        void SetPosition(Vector3 pos);
+        /// <param name="inWorldSpace"></param>
+        /// <returns></returns>
+        Vector3 GetPosition(bool inWorldSpace = true);
+
+        /// <summary>
+        ///  Set position 
+        /// </summary>
+        /// <param name="pos"></param>
+        /// <param name="inWorldSpace"></param>
+        void SetPosition(Vector3 pos, bool inWorldSpace = true);
 
         void AddChild(IActor child);
+
+        string  Name { get; set; }
+
+        Signal StartSignal { get; set; }
     }
 }

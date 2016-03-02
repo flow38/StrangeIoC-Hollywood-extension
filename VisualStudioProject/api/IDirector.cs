@@ -28,11 +28,14 @@ namespace strange.extensions.hollywood.api
         void PreRegister();
 
         /// This method fires immediately after injection.
-        /// Override to perform the actions you might normally perform in a constructor.
         void OnRegister(IActor actor);
 
         /// This method fires just before Director's actor instance will be destroyed.
         /// Override to clean up any listeners, or anything else that might keep the Actor/Director pair from being garbage collected.
         void OnRemove();
+
+        /// This method fires when Director's actor instance get its onStart Monobehavior event
+        /// Override to perform the actions you might normally perform in a constructor.
+        void OnStart();
     }
 }

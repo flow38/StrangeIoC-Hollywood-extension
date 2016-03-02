@@ -36,13 +36,21 @@ namespace strange.extensions.hollywood.impl
 
         /// <summary>
         ///     Fires after all injections satisifed.
-        ///     Override and place your initialization code here
-        ///     ALWAYS CALL Base.OnRegister IN YOUR OVERRIDE IMPLEMENTATION !!!
         /// </summary>
-        public virtual void OnRegister(IActor actor)
+        public void OnRegister(IActor actor)
         {
             Actor = actor;
             MyActor = (T)actor;
+            actor.StartSignal.AddOnce(OnStart);
+        }
+
+        /// <summary>
+        ///     Fire on actor's OnStart monobehavior "event"
+        ///     Override and place your initialization code here
+        /// </summary>
+        public virtual void OnStart()
+        {
+           
         }
 
         /// <summary>
