@@ -23,7 +23,7 @@ namespace strange.extensions.hollywood.impl
     {
         [Inject(ContextKeys.CONTEXT_DISPATCHER)]
         public IEventDispatcher dispatcher { get; set; }
-        
+
         
     }
 }

@@ -15,16 +15,34 @@
  */
 
 using strange.extensions.hollywood.api;
+using strange.extensions.signal.api;
 
 namespace strange.extensions.hollywood.impl
 {
     public class BaseDirector<T> : IDirector
     {
+        
         /// <summary>
         /// Internal accessor to actor instance, allow more accurate interface
         /// casting than IDirector's "actor" property.
         /// </summary>
         protected T MyActor;
+
+        [Inject]
+        public IStartDirectorsSignal StartDirectors{ get; set; }
+
+        
+        public BaseDirector()
+        {
+           
+        }
+
+        [PostConstruct]
+        public void PostConstruct()
+        {
+            StartDirectors.AddOnce(OnStart);
+        }
+
 
         /// <summary>
         ///     Fires directly after creation and before injection
@@ -41,16 +59,15 @@ namespace strange.extensions.hollywood.impl
         {
             Actor = actor;
             MyActor = (T)actor;
-            actor.StartSignal.AddOnce(OnStart);
         }
 
         /// <summary>
         ///     Fire on actor's OnStart monobehavior "event"
         ///     Override and place your initialization code here
         /// </summary>
-        public virtual void OnStart()
+        public virtual void OnStart(IBaseSignal baseSignal, object[] objects)
         {
-           
+            var t = 1;
         }
 
         /// <summary>

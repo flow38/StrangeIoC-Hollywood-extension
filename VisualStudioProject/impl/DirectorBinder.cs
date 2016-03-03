@@ -176,7 +176,7 @@ namespace strange.extensions.hollywood.impl
 
         private void registerDirector(IHollywoodView hollyView, IDirector director)
         {
-            if (!directory.ContainsKey(hollyView))
+            if(!directory.ContainsKey(hollyView))
                 directory.Add(hollyView, new List<IDirector>());
 
             directory[hollyView].Add(director);

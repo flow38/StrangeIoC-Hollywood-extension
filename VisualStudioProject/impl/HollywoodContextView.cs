@@ -25,5 +25,15 @@ namespace strange.extensions.hollywood.impl
 {
     public abstract class HollywoodContextView : ContextView, IHollywoodView
     {
+        [Inject]
+        public IStartDirectorsSignal StartDirectors
+        {
+            get; set;
+        }
+
+        public void Start()
+        {
+            StartDirectors.Dispatch(null);
+        }
     }
 }

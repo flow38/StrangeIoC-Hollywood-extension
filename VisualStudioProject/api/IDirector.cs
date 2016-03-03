@@ -14,6 +14,8 @@
  *		limitations under the License.
  */
 
+using strange.extensions.signal.api;
+
 namespace strange.extensions.hollywood.api
 {
     public interface IDirector
@@ -36,6 +38,6 @@ namespace strange.extensions.hollywood.api
 
         /// This method fires when Director's actor instance get its onStart Monobehavior event
         /// Override to perform the actions you might normally perform in a constructor.
-        void OnStart();
+        void OnStart(IBaseSignal baseSignal, object[] objects);
     }
 }

@@ -30,7 +30,7 @@ namespace strange.extensions.hollywood.impl
 
         protected GameObject MyGameObject;
 
-#region getter/setter
+        #region getter/setter
         public string Name
         {
             get
@@ -43,18 +43,8 @@ namespace strange.extensions.hollywood.impl
             }
         }
 
-        public Signal StartSignal
-        {
-            get; set;
-        }
 
-#endregion
-
-        public Actor()
-        {
-            StartSignal = new Signal();
-        }
-
+        #endregion
 
         public Vector3 GetPosition(bool inWorldSpace = true)
         {
@@ -77,7 +67,7 @@ namespace strange.extensions.hollywood.impl
             var actor = child as Actor;
             actor.MyTransform.parent = MyTransform;
         }
-        
+
         protected override void Awake()
         {
             MyTransform = transform;
@@ -88,7 +78,9 @@ namespace strange.extensions.hollywood.impl
         public void Start()
         {
             base.Start();
-            StartSignal.Dispatch();
+            ///
+            /// You should never, never,  NEVER put any code here, instead use IDirector::Start method
+            /// 
         }
     }
 }

@@ -59,6 +59,12 @@ namespace strange.extensions.hollywood.impl
             injectionBinder.Bind<IMediationBinder>().To<DirectorBinder>().ToSingleton();
         }
 
+        protected override void mapBindings()
+        {
+            base.mapBindings();
+            injectionBinder.Bind<IStartDirectorsSignal>().To<StartDirectorsSignal>().ToSingleton();
+        }
+
         public override void AddView(object view)
         {
             if (mediationBinder != null)
