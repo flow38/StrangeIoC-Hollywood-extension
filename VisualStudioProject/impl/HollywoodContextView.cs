@@ -31,7 +31,7 @@ namespace strange.extensions.hollywood.impl
             get; set;
         }
 
-        public void Start()
+        public virtual void Start()
         {
             StartDirectors.Dispatch(null);
         }
