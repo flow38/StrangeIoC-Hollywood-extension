@@ -39,5 +39,7 @@ namespace strange.extensions.hollywood.api
         void AddChild(IActor child);
 
         string  Name { get; set; }
+
+        Signal<MonoBehaviorEvent> MonoBehaviorSignal { get; set; }
     }
 }

@@ -30,6 +30,8 @@ namespace strange.extensions.hollywood.impl
 
         protected GameObject MyGameObject;
 
+        private Signal<MonoBehaviorEvent> _monoBehaviorSignal;
+
         #region getter/setter
         public string Name
         {
@@ -43,6 +45,11 @@ namespace strange.extensions.hollywood.impl
             }
         }
 
+        public Signal<MonoBehaviorEvent> MonoBehaviorSignal
+        {
+            get { return _monoBehaviorSignal; }
+            set { _monoBehaviorSignal = value; }
+        }
 
         #endregion
 
@@ -72,12 +79,14 @@ namespace strange.extensions.hollywood.impl
         {
             MyTransform = transform;
             MyGameObject = gameObject;
+            _monoBehaviorSignal = new Signal<MonoBehaviorEvent>();
             base.Awake();
         }
 
         public void Start()
         {
             base.Start();
+            _monoBehaviorSignal.Dispatch(MonoBehaviorEvent.Start);
             ///
             /// You should never, never,  NEVER put any code here, instead use IDirector::Start method
             /// 
