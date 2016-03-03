@@ -80,6 +80,10 @@ namespace strange.extensions.hollywood.impl
             Actor = null;
         }
 
+        public virtual void OnContextStart(IBaseSignal baseSignal, object[] objects)
+        {
+        }
+
         /// <summary>
         /// Public accessor for actor instance
         /// </summary>

@@ -24,7 +24,7 @@ namespace strange.extensions.hollywood.api
         /// IActor the IDirector instance is responsible for
         /// </summary>
         IActor Actor { get; set; }
-
+        
         /// This method fires immediately after instantiation, but before injection.
         /// Override to handle anything that needs to happen prior to injection.
         void PreRegister();
@@ -38,6 +38,6 @@ namespace strange.extensions.hollywood.api
 
         /// This method fires when Director's actor instance get its onStart Monobehavior event
         /// Override to perform the actions you might normally perform in a constructor.
-        void OnStart(IBaseSignal baseSignal, object[] objects);
+        void OnContextStart(IBaseSignal baseSignal, object[] objects);
     }
 }
