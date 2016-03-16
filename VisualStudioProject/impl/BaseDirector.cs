@@ -19,9 +19,9 @@ using strange.extensions.signal.api;
 
 namespace strange.extensions.hollywood.impl
 {
-    public class BaseDirector<T> : IDirector
+    public abstract class BaseDirector<T> : IDirector
     {
-        
+
         /// <summary>
         /// Internal accessor to actor instance, allow more accurate interface
         /// casting than IDirector's "actor" property.
@@ -29,18 +29,18 @@ namespace strange.extensions.hollywood.impl
         protected T MyActor;
 
         [Inject]
-        public IStartDirectorsSignal StartDirectors{ get; set; }
+        public IStartDirectorsSignal StartDirectors { get; set; }
 
-        
+
         public BaseDirector()
         {
-           
+
         }
 
         [PostConstruct]
         public void PostConstruct()
         {
-            StartDirectors.AddOnce(OnStart);
+            StartDirectors.AddOnce(OnContextStart);
         }
 
 
@@ -54,29 +54,31 @@ namespace strange.extensions.hollywood.impl
 
         /// <summary>
         ///     Fires after all injections satisifed.
+        ///     Override and place your Actor/Director relationship initialization code here
         /// </summary>
-        public void OnRegister(IActor actor)
+        public virtual void OnRegister(IActor actor)
         {
             Actor = actor;
             MyActor = (T)actor;
+            Actor.MonoBehaviorSignal.AddListener(OnStart);
         }
 
         /// <summary>
         ///     Fire on actor's OnStart monobehavior "event"
         ///     Override and place your initialization code here
         /// </summary>
-        public virtual void OnStart(IBaseSignal baseSignal, object[] objects)
+        public virtual void OnStart(MonoBehaviorEvent monoEvent)
         {
-            var t = 1;
+
         }
 
         /// <summary>
         ///     Fires on removal of view.
-        ///     Override and place your cleanup code here
-        ///     ALWAYS CALL Base.OnRegister IN YOUR OVERRIDE IMPLEMENTATION !!!
+        ///     Override and place your Actor/Director relationship cleanup code here
         /// </summary>
         public virtual void OnRemove()
         {
+            Actor.MonoBehaviorSignal.RemoveListener(OnStart);
             Actor = null;
         }
 
