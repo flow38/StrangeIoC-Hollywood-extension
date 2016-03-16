@@ -74,11 +74,11 @@ namespace strange.extensions.hollywood.impl
 
         /// <summary>
         ///     Fires on removal of view.
-        ///     Override and place your Actor/Director relationship cleanup code here
+        ///     Deprecated : Override and place your Actor/Director relationship cleanup code here
+        ///     => RelationShip with actor is only based on signal listening, which are clean by actor's onDestroy()
         /// </summary>
-        public virtual void OnRemove()
+        public void OnRemove()
         {
-            Actor.MonoBehaviorSignal.RemoveListener(OnStart);
             Actor = null;
         }
 

@@ -35,12 +35,10 @@ namespace strange.extensions.hollywood.impl
         #region getter/setter
         public string Name
         {
-            get
-            {
+            get {
                 return MyGameObject.name;
             }
-            set
-            {
+            set {
                 MyGameObject.name = value;
             }
         }
@@ -90,6 +88,11 @@ namespace strange.extensions.hollywood.impl
             ///
             /// You should never, never,  NEVER put any code here, instead use IDirector::Start method
             /// 
+        }
+
+        public void OnDestroy()
+        {
+            _monoBehaviorSignal.RemoveAllListeners();
         }
     }
 }
