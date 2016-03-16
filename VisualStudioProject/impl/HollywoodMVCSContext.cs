@@ -35,9 +35,9 @@ namespace strange.extensions.hollywood.impl
     {
         protected LaunchAppSignal StartHollywood;
 
-        public HollywoodMVCSContext(MonoBehaviour view):base(view)
+        public HollywoodMVCSContext(MonoBehaviour view) : base(view)
         {
-            
+
         }
 
         public HollywoodMVCSContext(MonoBehaviour view, ContextStartupFlags flags) : base(view, flags)
@@ -69,9 +69,8 @@ namespace strange.extensions.hollywood.impl
         {
             if (mediationBinder != null)
             {
-                mediationBinder.Trigger(MediationEvent.AWAKE, (IView) view);
-            }
-            else
+                mediationBinder.Trigger(MediationEvent.AWAKE, (IView)view);
+            } else
             {
                 cacheView(view as MonoBehaviour);
             }
@@ -81,9 +80,18 @@ namespace strange.extensions.hollywood.impl
         {
             //It's possible for views to fire their Awake before bindings. This catches any early risers and attaches their Mediators.
             mediateViewCache();
+
+
+            //Probleme avec le code ci dessous : il declenche la mediation sur tous les Actors trouvés dans la hierachie des enfant de la vue de context
+            //Conséquence : le onRegister des Director associé vont être executé alors que le awake de l'actor correspondant ne s'est pas produit!!
+            //=> Pose problème pour la mise en place de l'ecoute sur MonoBehaviorSignal de l'actor par le director, le signal étant alors null
+
+            //Solution : on se contente d'injecter la vue de context et les actor enfants s'enregistrerons lors de leurs Awake..
+            // A voir si ça tiend le coups... @todo
             //Ensure that all Views underneath the ContextView are triggered
             var contView = (contextView as GameObject).GetComponent<ContextView>();
-            mediationBinder.Trigger(MediationEvent.AWAKE, contView);
+            //mediationBinder.Trigger(MediationEvent.AWAKE, contView);
+            injectionBinder.injector.Inject(contView, false);
         }
 
         /// Fires StartHollywood
