@@ -14,8 +14,10 @@
  *		limitations under the License.
  */
 
+using System.Collections;
 using strange.extensions.context.impl;
 using strange.extensions.hollywood.api;
+using UnityEngine;
 
 /// <summary>
 /// A context in an Hollywood project must realize HollywoodContextView
@@ -33,6 +35,7 @@ namespace strange.extensions.hollywood.impl
 
         public virtual void Start()
         {
+            Debug.Log("HollywoodContextView Start");
             StartDirectors.Dispatch(null);
         }
     }

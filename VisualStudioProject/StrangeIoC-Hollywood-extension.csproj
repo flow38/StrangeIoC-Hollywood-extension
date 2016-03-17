@@ -62,6 +62,7 @@
     <Compile Include="api\IHollywoodView.cs" />
     <Compile Include="api\IRegisteredDirector.cs" />
     <Compile Include="api\IStartDirectorsSignal.cs" />
+    <Compile Include="api\IUnityActor.cs" />
     <Compile Include="api\MonoBehaviorEvent.cs" />
     <Compile Include="impl\Actor.cs" />
     <Compile Include="impl\BaseDirector.cs" />
@@ -85,6 +86,7 @@
     <PostBuildEvent>
 xcopy /Q /Y "$(TargetDir)$(TargetName).dll" "$(TargetDir)../../../../Luminos/Assets/External"
 xcopy /Q /Y "$(TargetDir)$(TargetName).pdb" "$(TargetDir)../../../../Luminos/Assets/External"
-xcopy /Q /Y "$(TargetDir)StrangeIoC.dll" "$(TargetDir)../../../../Luminos/Assets/External"</PostBuildEvent>
+xcopy /Q /Y "$(TargetDir)StrangeIoC.dll" "$(TargetDir)../../../../Luminos/Assets/External"
+xcopy /Q /Y "$(TargetDir)StrangeIoC.pdb" "$(TargetDir)../../../../Luminos/Assets/External"</PostBuildEvent>
   </PropertyGroup>
 </Project>
