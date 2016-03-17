@@ -92,7 +92,7 @@ namespace strange.extensions.hollywood.impl
         protected virtual void injectActorAndChildren(IHollywoodView actor)
         {
             var mono = actor as MonoBehaviour;
-            var actors = mono.GetComponentsInChildren(typeof (IHollywoodView), true);
+            var actors = mono.GetComponentsInChildren(typeof(IHollywoodView), true);
 
             var aa = actors.Length;
             for (var a = aa - 1; a > -1; a--)
@@ -100,7 +100,7 @@ namespace strange.extensions.hollywood.impl
                 var anActor = actors[a] as IHollywoodView;
                 if (anActor != null)
                 {
-                    if (anActor.autoRegisterWithContext && anActor.registeredWithContext)
+                    if (anActor.autoRegisterWithContext || anActor.registeredWithContext)
                     {
                         continue;
                     }
@@ -176,7 +176,7 @@ namespace strange.extensions.hollywood.impl
 
         private void registerDirector(IHollywoodView hollyView, IDirector director)
         {
-            if(!directory.ContainsKey(hollyView))
+            if (!directory.ContainsKey(hollyView))
                 directory.Add(hollyView, new List<IDirector>());
 
             directory[hollyView].Add(director);
@@ -189,17 +189,17 @@ namespace strange.extensions.hollywood.impl
 
             if (bindings.ContainsKey(actorType))
             {
-                int  length = 0;
+                int length = 0;
                 try
                 {
-                     length = directory[actor].Count;
+                    length = directory[actor].Count;
                 }
                 catch (Exception)
                 {
-                    
-                    var t =1;
+
+                    var t = 1;
                 }
-                
+
                 for (var i = 0; i < length; i++)
                 {
                     directory[actor][i].OnRemove();
