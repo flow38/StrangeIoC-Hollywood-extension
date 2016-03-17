@@ -21,7 +21,7 @@ using UnityEngine;
 
 namespace strange.extensions.hollywood.impl
 {
-    public class Actor : View, IActor
+    public class Actor : View, IUnityActor
     {
         /// <summary>
         ///     Cached GameObject Transform component
@@ -30,9 +30,11 @@ namespace strange.extensions.hollywood.impl
 
         protected GameObject MyGameObject;
 
+        protected Material MyMaterial;
+
         private Signal<MonoBehaviorEvent> _monoBehaviorSignal;
 
-        #region getter/setter
+        #region IActor
         public string Name
         {
             get {
@@ -49,7 +51,16 @@ namespace strange.extensions.hollywood.impl
             set { _monoBehaviorSignal = value; }
         }
 
-        #endregion
+        public Material Material()
+        {
+            return MyMaterial;
+        }
+
+        public Transform Transform()
+        {
+            return MyTransform;
+        }
+
 
         public Vector3 GetPosition(bool inWorldSpace = true)
         {
@@ -73,10 +84,17 @@ namespace strange.extensions.hollywood.impl
             actor.MyTransform.parent = MyTransform;
         }
 
+        #endregion
+
+
+        #region MonoBehavior
+
         protected override void Awake()
         {
             MyTransform = transform;
             MyGameObject = gameObject;
+            MyMaterial = GetComponent<Material>();
+
             _monoBehaviorSignal = new Signal<MonoBehaviorEvent>();
             base.Awake();
         }
@@ -94,5 +112,6 @@ namespace strange.extensions.hollywood.impl
         {
             _monoBehaviorSignal.RemoveAllListeners();
         }
+        #endregion
     }
 }
