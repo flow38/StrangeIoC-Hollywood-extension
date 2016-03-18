@@ -32,6 +32,8 @@ namespace strange.extensions.hollywood.impl
 
         protected Material MyMaterial;
 
+        protected Renderer MyRenderer;
+
         private Signal<MonoBehaviorEvent> _monoBehaviorSignal;
 
         #region IActor
@@ -51,6 +53,7 @@ namespace strange.extensions.hollywood.impl
             set { _monoBehaviorSignal = value; }
         }
 
+        #region IUnityActor
         public Material Material()
         {
             return MyMaterial;
@@ -61,6 +64,12 @@ namespace strange.extensions.hollywood.impl
             return MyTransform;
         }
 
+        public GameObject GameObject()
+        {
+            return MyGameObject;
+        }
+
+        #endregion
 
         public Vector3 GetPosition(bool inWorldSpace = true)
         {
@@ -93,8 +102,9 @@ namespace strange.extensions.hollywood.impl
         {
             MyTransform = transform;
             MyGameObject = gameObject;
-            MyMaterial = GetComponent<Material>();
-
+            MyRenderer = GetComponent<Renderer>();
+            if (MyRenderer != null)
+                MyMaterial = MyRenderer.material;
             _monoBehaviorSignal = new Signal<MonoBehaviorEvent>();
             base.Awake();
         }

@@ -10,5 +10,7 @@ namespace strange.extensions.hollywood.api
         Material Material();
 
         Transform Transform();
+
+        GameObject GameObject();
     }
 }
