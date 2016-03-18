@@ -61,9 +61,11 @@
     <Compile Include="api\IDirector.cs" />
     <Compile Include="api\IHollywoodView.cs" />
     <Compile Include="api\IRegisteredDirector.cs" />
+    <Compile Include="api\IService.cs" />
     <Compile Include="api\IStartDirectorsSignal.cs" />
     <Compile Include="api\IUnityActor.cs" />
     <Compile Include="api\MonoBehaviorEvent.cs" />
+    <Compile Include="impl\AbstractService.cs" />
     <Compile Include="impl\Actor.cs" />
     <Compile Include="impl\BaseDirector.cs" />
     <Compile Include="impl\DirectorBinder.cs" />
