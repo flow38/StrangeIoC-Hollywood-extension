@@ -77,7 +77,7 @@ namespace strange.extensions.hollywood.impl
         ///     Deprecated : Override and place your Actor/Director relationship cleanup code here
         ///     => RelationShip with actor is only based on signal listening, which are clean by actor's onDestroy()
         /// </summary>
-        public void OnRemove()
+        public virtual void OnRemove()
         {
             Actor = null;
         }
