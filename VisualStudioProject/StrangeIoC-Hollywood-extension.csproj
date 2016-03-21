@@ -65,7 +65,7 @@
     <Compile Include="api\IStartDirectorsSignal.cs" />
     <Compile Include="api\IUnityActor.cs" />
     <Compile Include="api\MonoBehaviorEvent.cs" />
-    <Compile Include="impl\AbstractService.cs" />
+    <Compile Include="impl\HollywoodService.cs" />
     <Compile Include="impl\Actor.cs" />
     <Compile Include="impl\BaseDirector.cs" />
     <Compile Include="impl\DirectorBinder.cs" />

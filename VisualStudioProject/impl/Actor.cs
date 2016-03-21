@@ -109,7 +109,7 @@ namespace strange.extensions.hollywood.impl
             base.Awake();
         }
 
-        public void Start()
+        protected override void Start()
         {
             base.Start();
             _monoBehaviorSignal.Dispatch(MonoBehaviorEvent.Start);
@@ -118,9 +118,12 @@ namespace strange.extensions.hollywood.impl
             /// 
         }
 
-        public void OnDestroy()
+        protected override void OnDestroy()
         {
             _monoBehaviorSignal.RemoveAllListeners();
+            //todo pour le moment les acteur sont destroy par le context parent. Dans l'idéal les vue devrait se detruire toute seules sur
+            //via un evenement Monobehavior , du coups pour le moment on commente base.OnDestroy(); pour ne pas faire doublon
+            //base.OnDestroy();
         }
         #endregion
     }

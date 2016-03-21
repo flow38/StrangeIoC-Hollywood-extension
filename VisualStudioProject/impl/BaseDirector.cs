@@ -84,6 +84,7 @@ namespace strange.extensions.hollywood.impl
 
         public virtual void OnContextStart(IBaseSignal baseSignal, object[] objects)
         {
+
         }
 
         /// <summary>
