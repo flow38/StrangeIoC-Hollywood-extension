@@ -35,6 +35,7 @@ namespace strange.extensions.hollywood.impl
         protected Renderer MyRenderer;
 
         private Signal<MonoBehaviorEvent> _monoBehaviorSignal;
+        private IDirector _director;
 
         #region IActor
         public string Name
@@ -51,6 +52,33 @@ namespace strange.extensions.hollywood.impl
         {
             get { return _monoBehaviorSignal; }
             set { _monoBehaviorSignal = value; }
+        }
+
+        public T GetDirectorComponent<T>() where T : IDirector
+        {
+            IActor[] othersActor = GetComponents<IActor>();
+            var _l = othersActor.Length;
+            for (int i = 0; i < _l; i++)
+            {
+                if (othersActor[i] != this && othersActor[i].Director != null && othersActor[i].Director is T)
+                {
+                    return (T)othersActor[i].Director;
+                }
+            }
+
+            return default(T);
+        }
+
+
+
+        public IDirector Director
+        {
+            get { return _director; }
+            set {
+                if (_director != null)
+                    throw new HollywoodException("Director property is already set !!", HollywoodExceptionType.DirectorIsAlreadyDefine);
+                _director = value;
+            }
         }
 
         #region IUnityActor
@@ -94,7 +122,6 @@ namespace strange.extensions.hollywood.impl
         }
 
         #endregion
-
 
         #region MonoBehavior
 

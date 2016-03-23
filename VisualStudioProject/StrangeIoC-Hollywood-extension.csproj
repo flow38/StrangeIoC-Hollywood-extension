@@ -86,9 +86,9 @@
   </ProjectExtensions>
   <PropertyGroup>
     <PostBuildEvent>
-xcopy /Q /Y "$(TargetDir)$(TargetName).dll" "$(TargetDir)../../../../Luminos/Assets/External"
-xcopy /Q /Y "$(TargetDir)$(TargetName).pdb" "$(TargetDir)../../../../Luminos/Assets/External"
-xcopy /Q /Y "$(TargetDir)StrangeIoC.dll" "$(TargetDir)../../../../Luminos/Assets/External"
-xcopy /Q /Y "$(TargetDir)StrangeIoC.pdb" "$(TargetDir)../../../../Luminos/Assets/External"</PostBuildEvent>
+xcopy /Q /Y "$(TargetDir)$(TargetName).dll" "$(TargetDir)../../../../Luminos/Assets/Plugins"
+xcopy /Q /Y "$(TargetDir)$(TargetName).pdb" "$(TargetDir)../../../../Luminos/Assets/Plugins"
+xcopy /Q /Y "$(TargetDir)StrangeIoC.dll" "$(TargetDir)../../../../Luminos/Assets/Plugins"
+xcopy /Q /Y "$(TargetDir)StrangeIoC.pdb" "$(TargetDir)../../../../Luminos/Assets/Plugins"</PostBuildEvent>
   </PropertyGroup>
 </Project>

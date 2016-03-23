@@ -153,9 +153,6 @@ namespace strange.extensions.hollywood.impl
 
 
 
-
-
-
                     if (director is IDirector)
                         director.PreRegister();
 
@@ -167,7 +164,10 @@ namespace strange.extensions.hollywood.impl
                     injectionBinder.Unbind(typeToInject);
 
                     if (director is IDirector)
+                    {
                         director.OnRegister(hollyView as IActor);
+                        (hollyView as IActor).Director = director;
+                    }
 
                     registerDirector(hollyView, director);
                 }
