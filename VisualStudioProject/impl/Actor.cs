@@ -169,7 +169,7 @@ namespace strange.extensions.hollywood.impl
         }
         #endregion
 
-        #region private
+        #region protected
         /// <summary>
         /// Browse throught an IActor array and test each actor's IDirector instance to
         /// find and return first found T instance.
@@ -177,7 +177,7 @@ namespace strange.extensions.hollywood.impl
         /// <typeparam name="T"></typeparam>
         /// <param name="othersActor"></param>
         /// <returns></returns>
-        private T searchDirectorComponent<T>(IActor[] othersActor) where T : IDirector
+        protected T searchDirectorComponent<T>(IActor[] othersActor) where T : IDirector
         {
             var _l = othersActor.Length;
             for (int i = 0; i < _l; i++)

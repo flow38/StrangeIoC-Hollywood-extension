@@ -47,8 +47,14 @@
     <Reference Include="UnityEditor">
       <HintPath>C:\Program Files\Unity\Editor\Data\Managed\UnityEditor.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEditor.UI">
+      <HintPath>..\UnityAssemblies\UnityEditor.UI.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files\Unity\Editor\Data\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>..\..\Luminos\Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -61,6 +67,13 @@
     <Compile Include="api\IDirector.cs" />
     <Compile Include="api\IHollywoodView.cs" />
     <Compile Include="api\IRegisteredDirector.cs" />
+    <Compile Include="api\ISignal.cs" />
+    <Compile Include="impl\AloneActor.cs" />
+    <Compile Include="impl\UI\Button\ButtonActor.cs" />
+    <Compile Include="impl\UI\Button\IButtonActor.cs" />
+    <Compile Include="impl\UI\Container\IContainerActor.cs" />
+    <Compile Include="impl\UI\Container\ContainerActor.cs" />
+    <Compile Include="impl\UI\Container\ContainerDirector.cs" />
     <Compile Include="Service\DirectorsAsServices\Timer\ITimer.cs" />
     <Compile Include="Service\DirectorsAsServices\Timer\ITimerActor.cs" />
     <Compile Include="Service\DirectorsAsServices\Timer\TimerActor.cs" />
@@ -83,6 +96,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include=".git\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Luminos\Luminos.CSharp.csproj">
+      <Project>{F3846DC4-40AD-B709-CFF3-3B062FA2E96C}</Project>
+      <Name>Luminos.CSharp</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>

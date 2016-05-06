@@ -11,6 +11,10 @@ namespace strange.extensions.hollywood.api
         /// <summary>
         /// During Director binding to Actor, Director instance is set on Actor but only once...
         /// </summary>
-        DirectorIsAlreadyDefine
+        DirectorIsAlreadyDefine,
+        /// <summary>
+        /// while accessing getter or setter Director instance on an Actor which is not supposed to have any attached Director instance .
+        /// </summary>
+        ActorIsAnAloneActorInstance
     }
 }

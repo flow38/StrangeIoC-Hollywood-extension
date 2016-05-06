@@ -20,6 +20,7 @@ using strange.extensions.command.impl;
 using strange.extensions.context.api;
 using strange.extensions.context.impl;
 using strange.extensions.hollywood.api;
+using strange.extensions.hollywood.impl.UI.Container;
 using strange.extensions.mediation.api;
 using strange.extensions.signal.impl;
 using UnityEngine;
@@ -63,6 +64,9 @@ namespace strange.extensions.hollywood.impl
         {
             base.mapBindings();
             injectionBinder.Bind<IStartDirectorsSignal>().To<StartDirectorsSignal>().ToSingleton();
+
+            //Actor/Director Binding
+            mediationBinder.Bind<ContainerActor>().To<ContainerDirector>();
         }
 
         public override void AddView(object view)
@@ -70,7 +74,8 @@ namespace strange.extensions.hollywood.impl
             if (mediationBinder != null)
             {
                 mediationBinder.Trigger(MediationEvent.AWAKE, (IView)view);
-            } else
+            }
+            else
             {
                 cacheView(view as MonoBehaviour);
             }

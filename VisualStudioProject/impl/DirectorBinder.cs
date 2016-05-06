@@ -123,6 +123,7 @@ namespace strange.extensions.hollywood.impl
             if (bindings.ContainsKey(viewType))
             {
                 var values = binding.value as object[];
+
                 var aa = values.Length;
                 for (var a = 0; a < aa; a++)
                 {
