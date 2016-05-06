@@ -26,7 +26,10 @@ namespace strange.extensions.hollywood.impl
         /// Internal accessor to actor instance, allow more accurate interface
         /// casting than IDirector's "actor" property.
         /// </summary>
-        protected T MyActor;
+        protected T MyActor
+        {
+            get { return (T)Actor; }
+        }
 
         [Inject]
         public IStartDirectorsSignal StartDirectors { get; set; }
@@ -59,7 +62,6 @@ namespace strange.extensions.hollywood.impl
         public virtual void OnRegister(IActor actor)
         {
             Actor = actor;
-            MyActor = (T)actor;
             Actor.MonoBehaviorSignal.AddListener(OnStart);
         }
 
