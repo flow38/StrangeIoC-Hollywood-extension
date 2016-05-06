@@ -42,7 +42,7 @@ namespace strange.extensions.hollywood.api
 
         Signal<MonoBehaviorEvent> MonoBehaviorSignal { get; set; }
 
-        T GetDirectorComponent<T>() where T : IDirector;
+        T GetDirectorComponent<T>(bool lookAtChildren = false) where T : IDirector;
 
         IDirector Director { set; get; }
     }

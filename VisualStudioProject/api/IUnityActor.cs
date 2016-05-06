@@ -12,5 +12,9 @@ namespace strange.extensions.hollywood.api
         Transform Transform();
 
         GameObject GameObject();
+        /// <summary>
+        /// Cached Monobehavior component accessors
+        /// </summary>
+        void CachedGameObjectShortcuts();
     }
 }

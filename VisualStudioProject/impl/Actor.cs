@@ -38,7 +38,7 @@ namespace strange.extensions.hollywood.impl
         private IDirector _director;
 
         #region IActor
-        public string Name
+        public virtual string Name
         {
             get {
                 return MyGameObject.name;
@@ -53,25 +53,31 @@ namespace strange.extensions.hollywood.impl
             get { return _monoBehaviorSignal; }
             set { _monoBehaviorSignal = value; }
         }
-
-        public T GetDirectorComponent<T>() where T : IDirector
+        /// <summary>
+        /// Look at any existing IActor instance on actor's gameobject and
+        /// return first found IDirector instance implementing T.
+        /// </summary>
+        /// TODO create an integration test
+        /// <typeparam name="T"></typeparam>
+        /// <param name="lookAtChildren"></param>
+        /// <returns></returns>
+        public virtual T GetDirectorComponent<T>(bool lookAtChildren = false) where T : IDirector
         {
+            T foundDirector = default(T);
+
             IActor[] othersActor = GetComponents<IActor>();
-            var _l = othersActor.Length;
-            for (int i = 0; i < _l; i++)
+            foundDirector = searchDirectorComponent<T>(othersActor);
+
+            if (foundDirector == null && lookAtChildren)
             {
-                if (othersActor[i] != this && othersActor[i].Director != null && othersActor[i].Director is T)
-                {
-                    return (T)othersActor[i].Director;
-                }
+                othersActor = GetComponentsInChildren<IActor>();
+                foundDirector = searchDirectorComponent<T>(othersActor);
             }
 
-            return default(T);
+            return foundDirector;
         }
 
-
-
-        public IDirector Director
+        public virtual IDirector Director
         {
             get { return _director; }
             set {
@@ -81,25 +87,7 @@ namespace strange.extensions.hollywood.impl
             }
         }
 
-        #region IUnityActor
-        public Material Material()
-        {
-            return MyMaterial;
-        }
-
-        public Transform Transform()
-        {
-            return MyTransform;
-        }
-
-        public GameObject GameObject()
-        {
-            return MyGameObject;
-        }
-
-        #endregion
-
-        public Vector3 GetPosition(bool inWorldSpace = true)
+        public virtual Vector3 GetPosition(bool inWorldSpace = true)
         {
             if (inWorldSpace)
                 return MyTransform.position;
@@ -107,7 +95,7 @@ namespace strange.extensions.hollywood.impl
                 return MyTransform.localPosition;
         }
 
-        public void SetPosition(Vector3 pos, bool inWorldSpace = true)
+        public virtual void SetPosition(Vector3 pos, bool inWorldSpace = true)
         {
             if (inWorldSpace)
                 MyTransform.position = pos;
@@ -115,10 +103,41 @@ namespace strange.extensions.hollywood.impl
                 MyTransform.localPosition = pos;
         }
 
-        public void AddChild(IActor child)
+        public virtual void AddChild(IActor child)
         {
             var actor = child as Actor;
             actor.MyTransform.parent = MyTransform;
+        }
+
+        #endregion
+
+
+        #region IUnityActor
+        public virtual Material Material()
+        {
+            return MyMaterial;
+        }
+
+        public virtual Transform Transform()
+        {
+            return MyTransform;
+        }
+
+        public virtual GameObject GameObject()
+        {
+            return MyGameObject;
+        }
+
+        /// <summary>
+        /// Cached Monobehavior component accessors
+        /// </summary>
+        public virtual void CachedGameObjectShortcuts()
+        {
+            MyTransform = transform;
+            MyGameObject = gameObject;
+            MyRenderer = GetComponent<Renderer>();
+            if (MyRenderer != null)
+                MyMaterial = MyRenderer.material;
         }
 
         #endregion
@@ -127,11 +146,7 @@ namespace strange.extensions.hollywood.impl
 
         protected override void Awake()
         {
-            MyTransform = transform;
-            MyGameObject = gameObject;
-            MyRenderer = GetComponent<Renderer>();
-            if (MyRenderer != null)
-                MyMaterial = MyRenderer.material;
+            CachedGameObjectShortcuts();
             _monoBehaviorSignal = new Signal<MonoBehaviorEvent>();
             base.Awake();
         }
@@ -151,6 +166,29 @@ namespace strange.extensions.hollywood.impl
             //todo pour le moment les acteur sont destroy par le context parent. Dans l'idéal les vue devrait se detruire toute seules sur
             //via un evenement Monobehavior , du coups pour le moment on commente base.OnDestroy(); pour ne pas faire doublon
             //base.OnDestroy();
+        }
+        #endregion
+
+        #region private
+        /// <summary>
+        /// Browse throught an IActor array and test each actor's IDirector instance to
+        /// find and return first found T instance.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="othersActor"></param>
+        /// <returns></returns>
+        private T searchDirectorComponent<T>(IActor[] othersActor) where T : IDirector
+        {
+            var _l = othersActor.Length;
+            for (int i = 0; i < _l; i++)
+            {
+                if (othersActor[i] != this && othersActor[i].Director != null && othersActor[i].Director is T)
+                {
+                    return (T)othersActor[i].Director;
+                }
+            }
+
+            return default(T);
         }
         #endregion
     }
