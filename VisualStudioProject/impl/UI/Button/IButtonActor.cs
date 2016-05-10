@@ -1,7 +1,7 @@
 ﻿using System;
 using strange.extensions.hollywood.api;
 
-namespace strange.extensions.hollywood.impl.UI.HollywoodButton
+namespace strange.extensions.hollywood.impl.UI.Button
 {
     public interface IButtonActor : IActor
     {
