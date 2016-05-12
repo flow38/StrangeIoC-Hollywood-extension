@@ -44,6 +44,9 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="TouchScript">
+      <HintPath>..\ExternalAssemblies\TouchScript.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor">
       <HintPath>C:\Program Files\Unity\Editor\Data\Managed\UnityEditor.dll</HintPath>
     </Reference>
@@ -68,7 +71,23 @@
     <Compile Include="api\IHollywoodView.cs" />
     <Compile Include="api\IRegisteredDirector.cs" />
     <Compile Include="api\ISignal.cs" />
+    <Compile Include="extensions\TouchScript\FlickGesture\FlickGestureActor.cs" />
+    <Compile Include="extensions\TouchScript\FlickGesture\FlickGestureDirector.cs" />
+    <Compile Include="extensions\TouchScript\FlickGesture\FlickGestureInfo.cs" />
+    <Compile Include="extensions\TouchScript\FlickGesture\IFlickGestureActor.cs" />
+    <Compile Include="extensions\TouchScript\IGestureListener.cs" />
+    <Compile Include="extensions\TouchScript\ReleaseGesture\IReleaseGestureActor.cs" />
+    <Compile Include="extensions\TouchScript\ReleaseGesture\ReleaseGestureActor.cs" />
+    <Compile Include="extensions\TouchScript\ReleaseGesture\ReleaseGestureDirector.cs" />
+    <Compile Include="extensions\TouchScript\PressGesture\IPressGestureActor.cs" />
+    <Compile Include="extensions\TouchScript\PressGesture\PressGestureActor.cs" />
+    <Compile Include="extensions\TouchScript\PressGesture\PressGestureDirector.cs" />
+    <Compile Include="extensions\TouchScript\TransformGesture\ITransformGestureActor.cs" />
+    <Compile Include="extensions\TouchScript\TransformGesture\TransformGestureActor.cs" />
+    <Compile Include="extensions\TouchScript\TransformGesture\TransformGestureDirector.cs" />
+    <Compile Include="extensions\TouchScript\TransformGesture\TransformGestureInfos.cs" />
     <Compile Include="impl\AloneActor.cs" />
+    <Compile Include="impl\SimpleSignal.cs" />
     <Compile Include="impl\UI\Button\ButtonActor.cs" />
     <Compile Include="impl\UI\Button\IButtonActor.cs" />
     <Compile Include="impl\UI\Container\IContainerActor.cs" />
@@ -96,12 +115,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include=".git\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Luminos\Luminos.CSharp.csproj">
-      <Project>{F3846DC4-40AD-B709-CFF3-3B062FA2E96C}</Project>
-      <Name>Luminos.CSharp</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>
