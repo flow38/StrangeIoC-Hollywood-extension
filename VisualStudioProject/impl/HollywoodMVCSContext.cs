@@ -66,7 +66,7 @@ namespace strange.extensions.hollywood.impl
             injectionBinder.Bind<IStartDirectorsSignal>().To<StartDirectorsSignal>().ToSingleton();
 
             //Actor/Director Binding
-            mediationBinder.Bind<ContainerActor>().To<ContainerDirector>();
+            mediationBinder.Bind<PanelActor>().To<PanelDirector>();
         }
 
         public override void AddView(object view)

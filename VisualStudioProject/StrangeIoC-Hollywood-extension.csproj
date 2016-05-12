@@ -90,9 +90,12 @@
     <Compile Include="impl\SimpleSignal.cs" />
     <Compile Include="impl\UI\Button\ButtonActor.cs" />
     <Compile Include="impl\UI\Button\IButtonActor.cs" />
-    <Compile Include="impl\UI\Container\IContainerActor.cs" />
-    <Compile Include="impl\UI\Container\ContainerActor.cs" />
-    <Compile Include="impl\UI\Container\ContainerDirector.cs" />
+    <Compile Include="impl\UI\Container\IPanelActor.cs" />
+    <Compile Include="impl\UI\Container\PanelActor.cs" />
+    <Compile Include="impl\UI\Container\PanelDirector.cs" />
+    <Compile Include="impl\UI\IUIActor.cs" />
+    <Compile Include="impl\UI\UIActor.cs" />
+    <Compile Include="impl\UI\UIDirector.cs" />
     <Compile Include="Service\DirectorsAsServices\Timer\ITimer.cs" />
     <Compile Include="Service\DirectorsAsServices\Timer\ITimerActor.cs" />
     <Compile Include="Service\DirectorsAsServices\Timer\TimerActor.cs" />
