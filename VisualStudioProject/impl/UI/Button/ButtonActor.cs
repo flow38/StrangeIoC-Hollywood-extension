@@ -35,8 +35,6 @@ namespace strange.extensions.hollywood.impl.UI.Button
         {
             //Get Text component
             text = GetComponentInChildren<Text>();
-            if (text == null)
-                throw new Exception("GUIText component cannot be not found !!");
 
             //Get Button component
             button = GetComponentInChildren<UnityEngine.UI.Button>();
