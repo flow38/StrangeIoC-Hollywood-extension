@@ -3,10 +3,8 @@ using strange.extensions.hollywood.impl;
 
 namespace strange.extensions.hollywood.extensions.TouchScript.FlickGesture
 {
-    public class FlickGestureDirector : Director<IFlickGestureActor>
+    public class FlickGestureDirector<T> : Director<T> where T : IFlickGestureActor
     {
-
-
 
         public override void OnRegister(IActor actor)
         {
