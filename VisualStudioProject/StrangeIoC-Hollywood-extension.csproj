@@ -90,9 +90,9 @@
     <Compile Include="impl\SimpleSignal.cs" />
     <Compile Include="impl\UI\Button\ButtonActor.cs" />
     <Compile Include="impl\UI\Button\IButtonActor.cs" />
-    <Compile Include="impl\UI\Container\IPanelActor.cs" />
-    <Compile Include="impl\UI\Container\PanelActor.cs" />
-    <Compile Include="impl\UI\Container\PanelDirector.cs" />
+    <Compile Include="impl\UI\Panel\IPanelActor.cs" />
+    <Compile Include="impl\UI\Panel\PanelActor.cs" />
+    <Compile Include="impl\UI\Panel\PanelDirector.cs" />
     <Compile Include="impl\UI\IUIActor.cs" />
     <Compile Include="impl\UI\UIActor.cs" />
     <Compile Include="impl\UI\UIDirector.cs" />
