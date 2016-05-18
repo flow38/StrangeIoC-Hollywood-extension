@@ -1,9 +1,8 @@
 ﻿using System;
-using strange.extensions.hollywood.api;
 
 namespace strange.extensions.hollywood.impl.UI.Button
 {
-    public interface IButtonActor : IActor
+    public interface IButtonActor : ISingleUIActor
     {
         string Label { get; set; }
 

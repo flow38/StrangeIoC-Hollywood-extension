@@ -1,5 +1,4 @@
 ﻿using System;
-using UnityEngine.UI;
 
 namespace strange.extensions.hollywood.impl.UI.Button
 {
@@ -12,7 +11,7 @@ namespace strange.extensions.hollywood.impl.UI.Button
     /// Click call back can be set via OnClick property or by listening OnClickSignal ISignal instance (ie : when accessing ButtonActor instance via its ButtonDirector)
     /// 
     /// </summary>
-    public class ButtonActor : AloneActor, IButtonActor
+    public class ButtonActor : SingleUIActor, IButtonActor
     {
         public string Label
         {
@@ -28,13 +27,13 @@ namespace strange.extensions.hollywood.impl.UI.Button
         public Action OnClick { get; set; }
 
 
-        private Text text;
+        private UnityEngine.UI.Text text;
         private UnityEngine.UI.Button button;
 
         protected override void Awake()
         {
             //Get Text component
-            text = GetComponentInChildren<Text>();
+            text = GetComponentInChildren<UnityEngine.UI.Text>();
 
             //Get Button component
             button = GetComponentInChildren<UnityEngine.UI.Button>();

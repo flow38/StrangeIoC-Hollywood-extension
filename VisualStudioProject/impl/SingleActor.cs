@@ -1,10 +1,9 @@
 ﻿using strange.extensions.hollywood.api;
-using strange.extensions.signal.impl;
-using UnityEngine;
 
 namespace strange.extensions.hollywood.impl
 {
-    public class AloneActor : Actor
+    //Actor which are not bind to any Director instance
+    public class SingleActor : Actor
     {
         #region IActor
 

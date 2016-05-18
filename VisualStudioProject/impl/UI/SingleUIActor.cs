@@ -1,14 +1,12 @@
-﻿using System;
-using strange.extensions.hollywood.impl.UI.Utils;
+﻿using strange.extensions.hollywood.impl.UI.Utils;
 using UnityEngine;
 
 namespace strange.extensions.hollywood.impl.UI
 {
-    [RequireComponent(typeof(RectTransform))]
-    public abstract class UIActor : Actor, IUIActor, IRectTransformWrapper
+    public class SingleUIActor : SingleActor, ISingleUIActor
     {
-        private RectTransform _rectTransform;
         private IRectTransformWrapper _rectTransformWrapper;
+        private RectTransform _rectTransform;
 
         public RectTransform RectTransform
         {
@@ -22,7 +20,7 @@ namespace strange.extensions.hollywood.impl.UI
 
             base.Awake();
         }
-        
+
         #region IRectTransformWrapper delegation pattern
         public void SetRectTransformPosition(Vector2 position)
         {
@@ -45,6 +43,5 @@ namespace strange.extensions.hollywood.impl.UI
         }
 
         #endregion
-
     }
 }
