@@ -20,7 +20,7 @@ namespace strange.extensions.hollywood.extensions.TouchScript.ReleaseGesture
         private Signal<Vector3> _onRelease;
         #endregion
 
-        #region public properties  & getter/setter
+        #region IReleaseGestureActor
         /// <summary>
         /// Player pressed & released event dispatcher
         /// bool is true on pressed event and false on released.
@@ -29,6 +29,11 @@ namespace strange.extensions.hollywood.extensions.TouchScript.ReleaseGesture
         public Signal<Vector3> OnReleased
         {
             get { return _onRelease; }
+        }
+
+        public void CancelRelease()
+        {
+            _releaseGesture.Cancel();
         }
         #endregion
 

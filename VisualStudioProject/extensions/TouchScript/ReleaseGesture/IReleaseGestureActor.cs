@@ -10,5 +10,7 @@ namespace strange.extensions.hollywood.extensions.TouchScript.ReleaseGesture
         /// </summary>
         Signal<Vector3> OnReleased { get; }
 
+        void CancelRelease();
+
     }
 }
