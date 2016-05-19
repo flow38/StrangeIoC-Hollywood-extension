@@ -1,5 +1,4 @@
-﻿using System;
-using strange.extensions.hollywood.impl.UI.Utils;
+﻿using strange.extensions.hollywood.impl.UI.Utils;
 using UnityEngine;
 
 namespace strange.extensions.hollywood.impl.UI

@@ -1,5 +1,4 @@
 ﻿using System;
-using strange.extensions.hollywood.extensions.TouchScript.FlickGesture;
 using strange.extensions.hollywood.impl;
 using strange.extensions.signal.impl;
 using TouchScript.Hit;

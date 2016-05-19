@@ -14,7 +14,6 @@
  *		limitations under the License.
  */
 
-using System.Collections;
 using strange.extensions.context.impl;
 using strange.extensions.hollywood.api;
 using UnityEngine;

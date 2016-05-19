@@ -14,7 +14,6 @@
  *		limitations under the License.
  */
 
-using System;
 using strange.extensions.command.api;
 using strange.extensions.command.impl;
 using strange.extensions.context.api;
@@ -22,7 +21,6 @@ using strange.extensions.context.impl;
 using strange.extensions.hollywood.api;
 using strange.extensions.hollywood.impl.UI.Panel;
 using strange.extensions.mediation.api;
-using strange.extensions.signal.impl;
 using UnityEngine;
 
 /// <summary>
