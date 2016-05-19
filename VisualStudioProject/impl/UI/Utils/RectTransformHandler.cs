@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace strange.extensions.hollywood.impl.UI.Utils
 {
-    public  class RectTransformUtils : IRectTransformWrapper
+    public class RectTransformUtils : IRectTransformWrapper
     {
 
         RectTransform _parentRectTransform;
@@ -12,13 +12,14 @@ namespace strange.extensions.hollywood.impl.UI.Utils
         public RectTransformUtils(RectTransform selfRectTransform)
         {
             _selfRectTransform = selfRectTransform;
-            _parentRectTransform = selfRectTransform.parent.GetComponentInParent<RectTransform>();
+            lookForParentRectTransform();
         }
 
         #region IRectTransformWrapper
 
         public void SetRectTransformPosition(Vector2 position)
         {
+            lookForParentRectTransform();
             //Convert percent values to pixel values
             if (_parentRectTransform.rect.width != 0 && _parentRectTransform.rect.height != 0)
             {
@@ -36,6 +37,7 @@ namespace strange.extensions.hollywood.impl.UI.Utils
 
         public Vector2 GetRectTransformPosition()
         {
+            lookForParentRectTransform();
             Vector2 position = _selfRectTransform.anchoredPosition;
             if (_parentRectTransform.rect.width != 0 && _parentRectTransform.rect.height != 0)
             {
@@ -51,8 +53,28 @@ namespace strange.extensions.hollywood.impl.UI.Utils
             return position;
         }
 
+        public Vector2 GetRectTransformSize()
+        {
+            lookForParentRectTransform();
+            Vector2 size = _selfRectTransform.sizeDelta;
+
+            if (_parentRectTransform.rect.width != 0 && _parentRectTransform.rect.height != 0)
+            {
+                size.x = size.x / _parentRectTransform.rect.width;
+                size.y = size.y / _parentRectTransform.rect.height;
+            }
+            else
+            {
+                size.x = size.x / Screen.width;
+                size.y = size.y / Screen.height;
+            }
+
+            return size;
+        }
+
         public void SetRectTransformSize(Vector2 size)
         {
+            lookForParentRectTransform();
             if (size.x < 0 || size.y < 0)
             {
                 throw (new Exception("size vector x & y properties cannot be negative (mean nothing about a width & height percent valeur)"));
@@ -73,14 +95,12 @@ namespace strange.extensions.hollywood.impl.UI.Utils
             _selfRectTransform.sizeDelta = size;
         }
 
-        public Vector2 GetRectTransformSize()
-        {
-            Vector2 size = _selfRectTransform.sizeDelta;
-            size.x = size.x / Screen.width;
-            size.y = size.y / Screen.height;
-
-            return size;
-        }
         #endregion
+
+        private void lookForParentRectTransform()
+        {
+            if (_parentRectTransform == null && _selfRectTransform.parent != null)
+                _parentRectTransform = _selfRectTransform.parent.GetComponentInParent<RectTransform>();
+        }
     }
 }
