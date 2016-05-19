@@ -128,31 +128,39 @@ namespace strange.extensions.hollywood.impl
                 for (var a = 0; a < aa; a++)
                 {
                     var mono = hollyView as MonoBehaviour;
-                    var directorType = values[a] as Type;
-                    if (directorType == viewType)
-                    {
-                        throw new MediationException(
-                            viewType + "mapped to itself. The result would be a stack overflow.",
-                            MediationExceptionType.MEDIATOR_VIEW_STACK_OVERFLOW);
-                    }
 
-                    //IDirector director = injectionBinder.GetInstance(directorType) as IDirector;
-                    IInjectionBinding bindingTest = injectionBinder.GetBinding(directorType, null) as IInjectionBinding;
-                    IDirector director;
-                    if (bindingTest == null)
+                    IDirector director = null;
+                    if (values[a] is Type)
                     {
-                        //Default use case
-                        injectionBinder.Bind<IDirector>().To(directorType);
-                        director = injectionBinder.GetInstance<IDirector>();
-                        injectionBinder.Unbind<IDirector>();
+                        var directorType = values[a] as Type;
+                        if (directorType == viewType)
+                        {
+                            throw new MediationException(
+                                viewType + "mapped to itself. The result would be a stack overflow.",
+                                MediationExceptionType.MEDIATOR_VIEW_STACK_OVERFLOW);
+                        }
+
+                        IInjectionBinding bindingTest = injectionBinder.GetBinding(directorType, null) as IInjectionBinding;
+
+                        if (bindingTest == null)
+                        {
+                            //Default use case
+                            injectionBinder.Bind<IDirector>().To(directorType);
+                            director = injectionBinder.GetInstance<IDirector>();
+                            injectionBinder.Unbind<IDirector>();
+                        }
+                        else
+                        {
+                            //Actor is bind to an Interface...
+                            director = injectionBinder.GetInstance(directorType) as IDirector;
+                        }
+
                     }
                     else
                     {
-                        //Actor is bind to an Interface...
-                        director = injectionBinder.GetInstance(directorType) as IDirector;
+                        //Actor is bind to a concrete object instance 
+                        director = values[a] as IDirector;
                     }
-
-
 
                     if (director is IDirector)
                         director.PreRegister();
@@ -171,6 +179,16 @@ namespace strange.extensions.hollywood.impl
                     }
 
                     registerDirector(hollyView, director);
+
+                    //IDirector director = injectionBinder.GetInstance(directorType) as IDirector;
+                    try
+                    {
+
+                    }
+                    catch (Exception e)
+                    {
+                        var t = 1;
+                    }
                 }
             }
         }
