@@ -2,7 +2,7 @@
 
 namespace strange.extensions.hollywood.extensions.TouchScript.TransformGesture
 {
-    public class TransformGestureInfos
+    public class TransformInfos
     {
         public bool IsActive { get; set; }
 
@@ -10,7 +10,7 @@ namespace strange.extensions.hollywood.extensions.TouchScript.TransformGesture
 
         public Vector3 GestureLocation;
 
-        public TransformGestureInfos()
+        public TransformInfos()
         {
 
         }

@@ -9,23 +9,17 @@ namespace strange.extensions.hollywood.extensions.TouchScript.TransformGesture
         public override void OnRegister(IActor actor)
         {
             base.OnRegister(actor);
-            MyActor.OnTransformGesture.AddListener(onTransformGesture);
+            //Example : 
+            //MyActor.OnStarted.AddListener(yourCustomMethod);
         }
 
         public override void OnRemove()
         {
-            MyActor.OnTransformGesture.RemoveListener(onTransformGesture);
+            //Example : 
+            //MyActor.OnStarted.RemoveListener(yourCustomMethod);
 
             base.OnRemove();
         }
 
-        /// <summary>
-        /// Implement onTransformGesture in your subclass !
-        /// </summary>
-        /// <param name="infos"></param>
-        protected virtual void onTransformGesture(TransformGestureInfos infos)
-        {
-
-        }
     }
 }
