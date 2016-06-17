@@ -43,6 +43,18 @@ namespace strange.extensions.hollywood.extensions.TouchScript.TransformGesture
         {
             get { return _onStateChanged; }
         }
+
+        public float MinScreenPointsDistance
+        {
+            get { return _transformGesture.MinScreenPointsDistance; }
+            set { _transformGesture.MinScreenPointsDistance = value; }
+        }
+        public float ScreenTransformThreshold
+        {
+            get { return _transformGesture.ScreenTransformThreshold; }
+            set { _transformGesture.ScreenTransformThreshold = value; }
+        }
+
         #endregion
 
         #region IGestureListener
@@ -68,7 +80,6 @@ namespace strange.extensions.hollywood.extensions.TouchScript.TransformGesture
         #region MonoBehavior
         protected override void Awake()
         {
-
             //Create signal for ITransformGestureActor interface
             _onStarted = new Signal<TransformInfos>();
             _onTransformed = new Signal<TransformInfos>();
@@ -116,19 +127,19 @@ namespace strange.extensions.hollywood.extensions.TouchScript.TransformGesture
         }
         protected virtual void onStarted(object sender, EventArgs e)
         {
-            _onTransformed.Dispatch(buildTransformInfos());
+            _onStarted.Dispatch(buildTransformInfos());
         }
         protected virtual void onCompleted(object sender, EventArgs e)
         {
-            _onTransformed.Dispatch(buildTransformInfos());
+            _onCompleted.Dispatch(buildTransformInfos());
         }
         protected virtual void onCancelled(object sender, EventArgs e)
         {
-            _onTransformed.Dispatch(buildTransformInfos());
+            _onCancelled.Dispatch(buildTransformInfos());
         }
         protected virtual void onStateChanged(object sender, EventArgs e)
         {
-            _onTransformed.Dispatch(buildTransformInfos());
+            _onStateChanged.Dispatch(buildTransformInfos());
         }
 
         protected TransformInfos buildTransformInfos()
