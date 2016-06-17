@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace strange.extensions.hollywood.extensions.Device
 {
-    class DeviceInspector : HollywoodService, IDeviceInspector
+    public class DeviceInspector : HollywoodService, IDeviceInspector
     {
         #region IUnityScreen interface
         public bool AutorotateToLandscapeLeft
@@ -79,11 +79,14 @@ namespace strange.extensions.hollywood.extensions.Device
         }
         #endregion
 
+        #region IDeviceInspector
         public float ScreenRatio
         {
             get {
                 return (float)Screen.width / (float)Screen.height;
             }
         }
+
+        #endregion
     }
 }
