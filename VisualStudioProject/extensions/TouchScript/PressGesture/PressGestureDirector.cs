@@ -27,7 +27,7 @@ namespace strange.extensions.hollywood.extensions.TouchScript.PressGesture
         #endregion
 
         #region private methods
-        protected virtual void onPressed(bool isPressed, Vector3 pressPosition)
+        protected virtual void onPressed(Vector3 pressPosition)
         {
         }
         #endregion

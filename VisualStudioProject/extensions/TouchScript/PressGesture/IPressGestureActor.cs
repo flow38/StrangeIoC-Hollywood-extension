@@ -6,9 +6,9 @@ namespace strange.extensions.hollywood.extensions.TouchScript.PressGesture
     public interface IPressGestureActor : IGestureListener
     {
         /// <summary>
-        /// Player flick gesture is detected
+        /// Press gesture istriggered
         /// </summary>
-        Signal<bool, Vector3> OnPressed { get; }
+        Signal<Vector3> OnPressed { get; }
 
     }
 }

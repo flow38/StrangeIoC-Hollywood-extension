@@ -17,7 +17,7 @@ namespace strange.extensions.hollywood.extensions.TouchScript.PressGesture
         /// bool is true on pressed event and false on released.
         /// Vector3 is GameObject transform position on which gesture is triggered
         /// </summary>
-        private Signal<bool, Vector3> _onPressed;
+        private Signal<Vector3> _onPressed;
         #endregion
 
         #region public properties  & getter/setter
@@ -26,7 +26,7 @@ namespace strange.extensions.hollywood.extensions.TouchScript.PressGesture
         /// bool is true on pressed event and false on released.
         /// Vector3 is GameObject transform position on which gesture is triggered
         /// </summary>
-        public Signal<bool, Vector3> OnPressed
+        public Signal<Vector3> OnPressed
         {
             get { return _onPressed; }
         }
@@ -48,15 +48,13 @@ namespace strange.extensions.hollywood.extensions.TouchScript.PressGesture
 
         #endregion
 
-
         #region MonoBehavior
         protected override void Awake()
         {
-            _onPressed = new Signal<bool, Vector3>();
+            _onPressed = new Signal<Vector3>();
             _pressGesture = GetComponent<global::TouchScript.Gestures.PressGesture>();
             base.Awake();
         }
-
 
         protected override void OnDestroy()
         {
@@ -69,12 +67,11 @@ namespace strange.extensions.hollywood.extensions.TouchScript.PressGesture
         #endregion
 
         #region private methods
-
         protected virtual void onPressedHandler(object sender, EventArgs e)
         {
             TouchHit hit;
             _pressGesture.GetTargetHitResult(out hit);
-            _onPressed.Dispatch(true, hit.Point);
+            _onPressed.Dispatch(hit.Point);
         }
 
         #endregion
