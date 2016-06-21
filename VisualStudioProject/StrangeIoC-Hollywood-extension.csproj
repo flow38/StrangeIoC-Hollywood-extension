@@ -66,6 +66,9 @@
     <Compile Include="extensions\TouchScript\PressGesture\IPressGestureActor.cs" />
     <Compile Include="extensions\TouchScript\PressGesture\PressGestureActor.cs" />
     <Compile Include="extensions\TouchScript\PressGesture\PressGestureDirector.cs" />
+    <Compile Include="extensions\TouchScript\TapGesture\ITapGestureActor.cs" />
+    <Compile Include="extensions\TouchScript\TapGesture\TapGestureActor.cs" />
+    <Compile Include="extensions\TouchScript\TapGesture\TapGestureDirector.cs" />
     <Compile Include="extensions\TouchScript\TransformGesture\ITransformGestureActor.cs" />
     <Compile Include="extensions\TouchScript\TransformGesture\TransformGestureActor.cs" />
     <Compile Include="extensions\TouchScript\TransformGesture\TransformGestureDirector.cs" />
@@ -108,6 +111,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include=".git\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="extensions\TouchScript\TapGesture\ITapGestureActor.cs.meta" />
+    <None Include="extensions\TouchScript\TapGesture\TapGestureActor.cs.meta" />
+    <None Include="extensions\TouchScript\TapGesture\TapGestureDirector.cs.meta" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>
