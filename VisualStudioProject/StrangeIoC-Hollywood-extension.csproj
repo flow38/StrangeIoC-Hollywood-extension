@@ -35,6 +35,9 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="StrangeIoC">
+      <HintPath>..\..\iOSStripCodeDebug\Assets\Plugins\StrangeIoC.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -42,6 +45,18 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="TouchScript">
       <HintPath>..\ExternalAssemblies\TouchScript.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor">
+      <HintPath>C:\Program Files\Unity\Editor\Data\Managed\UnityEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>C:\Program Files\Unity\Editor\Data\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Networking">
+      <HintPath>C:\Program Files\Unity\Editor\Data\UnityExtensions\Unity\Networking\UnityEngine.Networking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>C:\Program Files\Unity\Editor\Data\UnityExtensions\Unity\GUISystem\UnityEngine.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -72,7 +87,7 @@
     <Compile Include="extensions\TouchScript\TransformGesture\ITransformGestureActor.cs" />
     <Compile Include="extensions\TouchScript\TransformGesture\TransformGestureActor.cs" />
     <Compile Include="extensions\TouchScript\TransformGesture\TransformGestureDirector.cs" />
-    <Compile Include="extensions\TouchScript\TransformGesture\TransformGestureInfos.cs" />
+    <Compile Include="extensions\TouchScript\TransformGesture\TransformInfos.cs" />
     <Compile Include="impl\SingleActor.cs" />
     <Compile Include="impl\SimpleSignal.cs" />
     <Compile Include="impl\UI\Button\ButtonActor.cs" />
