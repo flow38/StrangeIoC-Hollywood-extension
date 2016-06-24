@@ -14,6 +14,8 @@ namespace strange.extensions.hollywood.api
         GameObject GameObject();
         /// <summary>
         /// Cached Monobehavior component accessors
+        /// Play Mode : call at Actor's Monobehavior Awake method
+        /// Editor Mode : you have to programmatically call it if you need to
         /// </summary>
         void CachedGameObjectShortcuts();
     }
