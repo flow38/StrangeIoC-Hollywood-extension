@@ -62,17 +62,9 @@ namespace strange.extensions.hollywood.impl
         public virtual void OnRegister(IActor actor)
         {
             Actor = actor;
-            Actor.MonoBehaviorSignal.AddListener(OnStart);
         }
 
-        /// <summary>
-        ///     Fire on actor's OnStart monobehavior "event"
-        ///     Override and place your initialization code here
-        /// </summary>
-        public virtual void OnStart(MonoBehaviorEvent monoEvent)
-        {
 
-        }
 
         /// <summary>
         ///     Fires on removal of view.
