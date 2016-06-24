@@ -209,15 +209,8 @@ namespace strange.extensions.hollywood.impl
             if (bindings.ContainsKey(actorType))
             {
                 int length = 0;
-                try
-                {
-                    length = directory[actor].Count;
-                }
-                catch (Exception)
-                {
 
-                    var t = 1;
-                }
+                length = directory[actor].Count;
 
                 for (var i = 0; i < length; i++)
                 {
