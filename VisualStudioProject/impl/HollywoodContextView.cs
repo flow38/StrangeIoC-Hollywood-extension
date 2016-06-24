@@ -34,7 +34,6 @@ namespace strange.extensions.hollywood.impl
 
         public virtual void Start()
         {
-            Debug.Log("HollywoodContextView Start");
             StartDirectors.Dispatch(null);
         }
     }
