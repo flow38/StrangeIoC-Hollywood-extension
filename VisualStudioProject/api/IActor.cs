@@ -39,9 +39,14 @@ namespace strange.extensions.hollywood.api
         void AddChild(IActor child);
 
         string Name { get; set; }
-
-        Signal<MonoBehaviorEvent> MonoBehaviorSignal { get; set; }
-
+        /// <summary>
+        /// Look at any existing IActor instance on actor's gameobject and
+        /// return first found IDirector instance implementing T.
+        /// </summary>
+        /// TODO create an integration test
+        /// <typeparam name="T"></typeparam>
+        /// <param name="lookAtChildren"></param>
+        /// <returns></returns>
         T GetDirectorComponent<T>(bool lookAtChildren = false) where T : IDirector;
 
         IDirector Director { set; get; }
