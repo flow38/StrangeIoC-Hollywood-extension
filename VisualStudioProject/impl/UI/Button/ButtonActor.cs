@@ -53,7 +53,8 @@ namespace strange.extensions.hollywood.impl.UI.Button
 
         public void OnClickHandler()
         {
-            OnClick?.Invoke();
+            if (OnClick != null)
+                OnClick.Invoke();
         }
     }
 }
