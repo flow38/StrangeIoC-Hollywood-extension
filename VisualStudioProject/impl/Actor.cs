@@ -16,7 +16,6 @@
 
 using strange.extensions.hollywood.api;
 using strange.extensions.mediation.impl;
-using strange.extensions.signal.impl;
 using UnityEngine;
 
 namespace strange.extensions.hollywood.impl
@@ -34,7 +33,6 @@ namespace strange.extensions.hollywood.impl
 
         protected Renderer MyRenderer;
 
-        private Signal<MonoBehaviorEvent> _monoBehaviorSignal;
         private IDirector _director;
 
         #region IActor
@@ -48,19 +46,6 @@ namespace strange.extensions.hollywood.impl
             }
         }
 
-        public Signal<MonoBehaviorEvent> MonoBehaviorSignal
-        {
-            get { return _monoBehaviorSignal; }
-            set { _monoBehaviorSignal = value; }
-        }
-        /// <summary>
-        /// Look at any existing IActor instance on actor's gameobject and
-        /// return first found IDirector instance implementing T.
-        /// </summary>
-        /// TODO create an integration test
-        /// <typeparam name="T"></typeparam>
-        /// <param name="lookAtChildren"></param>
-        /// <returns></returns>
         public virtual T GetDirectorComponent<T>(bool lookAtChildren = false) where T : IDirector
         {
             T foundDirector = default(T);
@@ -106,7 +91,7 @@ namespace strange.extensions.hollywood.impl
         public virtual void AddChild(IActor child)
         {
             var actor = child as Actor;
-            actor.MyTransform.parent = MyTransform;
+            actor.MyTransform.SetParent(MyTransform);
         }
 
         #endregion
@@ -147,14 +132,12 @@ namespace strange.extensions.hollywood.impl
         protected override void Awake()
         {
             CachedGameObjectShortcuts();
-            _monoBehaviorSignal = new Signal<MonoBehaviorEvent>();
             base.Awake();
         }
 
         protected override void Start()
         {
             base.Start();
-            _monoBehaviorSignal.Dispatch(MonoBehaviorEvent.Start);
             ///
             /// You should never, never,  NEVER put any code here, instead use IDirector::Start method
             /// 
@@ -162,7 +145,6 @@ namespace strange.extensions.hollywood.impl
 
         protected override void OnDestroy()
         {
-            _monoBehaviorSignal.RemoveAllListeners();
             //todo pour le moment les acteur sont destroy par le context parent. Dans l'idéal les vue devrait se detruire toute seules sur
             //via un evenement Monobehavior , du coups pour le moment on commente base.OnDestroy(); pour ne pas faire doublon
             //base.OnDestroy();
