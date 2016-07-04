@@ -179,16 +179,6 @@ namespace strange.extensions.hollywood.impl
                     }
 
                     registerDirector(hollyView, director);
-
-                    //IDirector director = injectionBinder.GetInstance(directorType) as IDirector;
-                    try
-                    {
-
-                    }
-                    catch (Exception e)
-                    {
-                        var t = 1;
-                    }
                 }
             }
         }

@@ -15,7 +15,7 @@ namespace strange.extensions.hollywood.impl
         }*/
 
 
-        public virtual IDirector Director
+        public override IDirector Director
         {
             get {
                 throw new HollywoodException("Cannot get Director intance as I'm an AloneActor intance !!", HollywoodExceptionType.ActorIsAnAloneActorInstance);

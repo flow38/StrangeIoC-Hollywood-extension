@@ -24,17 +24,44 @@ using UnityEngine;
 
 namespace strange.extensions.hollywood.impl
 {
-    public abstract class HollywoodContextView : ContextView, IHollywoodView
+    public abstract class HollywoodContextView : ContextView, IHollywoodContextView
     {
-        [Inject]
-        public IStartDirectorsSignal StartDirectors
+        private bool _haveAlreadyStart = false;
+
+        public ISignal WarmUpDirectors
+        {
+            get; set;
+        }
+
+        public ISignal StartDirectors
         {
             get; set;
         }
 
         public virtual void Start()
         {
-            StartDirectors.Dispatch(null);
+            StartContext();
         }
+
+        public virtual void StartContext()
+        {
+            //Very important to first set  _haveAlreadyStart flag to true BEFORE dispatching WarmUpDirectors & StartDirectors signals !!!
+            _haveAlreadyStart = true;
+            //Trigger directors (and services) dependencies creation
+            WarmUpDirectors.Dispatch();
+            //Directors (and service) can now call other entities method wihtout errors
+            StartDirectors.Dispatch();
+        }
+
+        public void OnDisable()
+        {
+            _haveAlreadyStart = false;
+        }
+
+        public bool hasAlreadyStart()
+        {
+            return _haveAlreadyStart;
+        }
+
     }
 }

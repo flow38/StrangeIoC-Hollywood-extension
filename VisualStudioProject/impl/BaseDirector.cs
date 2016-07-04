@@ -13,9 +13,9 @@
  *		See the License for the specific language governing permissions and
  *		limitations under the License.
  */
-
 using strange.extensions.hollywood.api;
-using strange.extensions.signal.api;
+using strange.extensions.injector.api;
+using strange.extensions.injector.impl;
 
 namespace strange.extensions.hollywood.impl
 {
@@ -31,19 +31,50 @@ namespace strange.extensions.hollywood.impl
             get { return (T)Actor; }
         }
 
+        [Inject(HollywoodSignals.Start)]
+        public ISignal StartSignal { get; set; }
+
+        [Inject(HollywoodSignals.WarmUp)]
+        public ISignal WarmupSignal { get; set; }
+
         [Inject]
-        public IStartDirectorsSignal StartDirectors { get; set; }
+        public IHollywoodContextView ContextView { get; set; }
 
+        [Inject]
+        public IInjectionBinder _injectionBinder { get; set; }
 
-        public BaseDirector()
-        {
-
-        }
 
         [PostConstruct]
-        public void PostConstruct()
+        public virtual void PostConstruct()
         {
-            StartDirectors.AddOnce(OnContextStart);
+            if (ContextView.hasAlreadyStart())
+            {
+                WarmUp();
+                //Dans cette situation on n'execute le StartUp que sur la fin sur le onRegister pour permettre aux implementations
+                // de StartUp de faire reference à l'acteur du directeur.
+            }
+            else
+            {
+                WarmupSignal.AddOnce(WarmUp);
+                StartSignal.AddOnce(Start);
+            }
+        }
+
+        /// <summary>
+        /// Implement this method to get references to other service or Director instance via Director's injected
+        /// context's IInjectionBinder instance  or via actor GetDirectorComponent() method...
+        /// </summary>
+        protected virtual void WarmUp()
+        {
+            //throw new System.NotImplementedException();
+        }
+
+        /// <summary>
+        /// Implement this method to realy start your instance job, make safely call to other directors and services.
+        /// </summary>
+        protected virtual void Start()
+        {
+            //throw new System.NotImplementedException();
         }
 
 
@@ -61,9 +92,15 @@ namespace strange.extensions.hollywood.impl
         /// </summary>
         public virtual void OnRegister(IActor actor)
         {
+            ///Beware, never try here to access other Director via Actor.GetDirectorComponent<T>() method, we're not sur
+            /// other GameObject actor component have been awake (and bind to a Director) or not
+            ///Example :  myItemDirector = Actor.GetDirectorComponent<IItemDirector>();
             Actor = actor;
+            if (ContextView.hasAlreadyStart())
+            {
+                Start();
+            }
         }
-
 
 
         /// <summary>
@@ -74,11 +111,6 @@ namespace strange.extensions.hollywood.impl
         public virtual void OnRemove()
         {
             Actor = null;
-        }
-
-        public virtual void OnContextStart(IBaseSignal baseSignal, object[] objects)
-        {
-
         }
 
         /// <summary>

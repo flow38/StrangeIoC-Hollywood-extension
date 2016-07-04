@@ -67,9 +67,18 @@
     <Compile Include="api\HollywoodExceptionType.cs" />
     <Compile Include="api\IActor.cs" />
     <Compile Include="api\IDirector.cs" />
+    <Compile Include="api\IEntityActor.cs" />
+    <Compile Include="api\IHollywoodContextView.cs" />
     <Compile Include="api\IHollywoodView.cs" />
+    <Compile Include="api\IntegrationTest\ITestActor.cs" />
+    <Compile Include="api\IntegrationTest\ITestDirector.cs" />
     <Compile Include="api\IRegisteredDirector.cs" />
     <Compile Include="api\ISignal.cs" />
+    <Compile Include="impl\Service\HollywoodService.cs" />
+    <Compile Include="api\Service\IService.cs" />
+    <Compile Include="extensions\Device\DeviceInspector.cs" />
+    <Compile Include="extensions\Device\IDeviceInspector.cs" />
+    <Compile Include="extensions\Device\IUnityScreen.cs" />
     <Compile Include="extensions\TouchScript\FlickGesture\FlickGestureActor.cs" />
     <Compile Include="extensions\TouchScript\FlickGesture\FlickGestureDirector.cs" />
     <Compile Include="extensions\TouchScript\FlickGesture\FlickGestureInfo.cs" />
@@ -88,6 +97,18 @@
     <Compile Include="extensions\TouchScript\TransformGesture\TransformGestureActor.cs" />
     <Compile Include="extensions\TouchScript\TransformGesture\TransformGestureDirector.cs" />
     <Compile Include="extensions\TouchScript\TransformGesture\TransformInfos.cs" />
+    <Compile Include="impl\Command\AppLaunchIsDone.cs" />
+    <Compile Include="impl\EntityActor.cs" />
+    <Compile Include="impl\HollywoodSignals.cs" />
+    <Compile Include="impl\IntegrationTest\Input\IIntegrationTestScenario.cs" />
+    <Compile Include="impl\IntegrationTest\Input\IntegrationTestScenario.cs" />
+    <Compile Include="impl\IntegrationTest\Input\IntegrationTestUseCase.cs" />
+    <Compile Include="impl\IntegrationTest\TestActor.cs" />
+    <Compile Include="impl\IntegrationTest\TestDirector.cs" />
+    <Compile Include="impl\Service\Logger\DisplayMode.cs" />
+    <Compile Include="impl\Service\Logger\HollywoodLogger.cs" />
+    <Compile Include="impl\Service\Logger\IHollywoodLogger.cs" />
+    <Compile Include="impl\Service\Logger\LogLevel.cs" />
     <Compile Include="impl\SingleActor.cs" />
     <Compile Include="impl\SimpleSignal.cs" />
     <Compile Include="impl\UI\Button\ButtonActor.cs" />
@@ -104,15 +125,13 @@
     <Compile Include="impl\UI\SingleUIActor.cs" />
     <Compile Include="impl\UI\UIActor.cs" />
     <Compile Include="impl\UI\UIDirector.cs" />
-    <Compile Include="Service\DirectorsAsServices\Timer\ITimer.cs" />
-    <Compile Include="Service\DirectorsAsServices\Timer\ITimerActor.cs" />
-    <Compile Include="Service\DirectorsAsServices\Timer\TimerActor.cs" />
-    <Compile Include="Service\DirectorsAsServices\Timer\TimerDirector.cs" />
-    <Compile Include="Service\IService.cs" />
+    <Compile Include="impl\Service\DirectorsAsServices\Timer\ITimer.cs" />
+    <Compile Include="impl\Service\DirectorsAsServices\Timer\ITimerActor.cs" />
+    <Compile Include="impl\Service\DirectorsAsServices\Timer\TimerActor.cs" />
+    <Compile Include="impl\Service\DirectorsAsServices\Timer\TimerDirector.cs" />
     <Compile Include="api\IStartDirectorsSignal.cs" />
     <Compile Include="api\IUnityActor.cs" />
     <Compile Include="api\MonoBehaviorEvent.cs" />
-    <Compile Include="Service\HollywoodService.cs" />
     <Compile Include="impl\Actor.cs" />
     <Compile Include="impl\BaseDirector.cs" />
     <Compile Include="impl\DirectorBinder.cs" />
@@ -128,9 +147,27 @@
     <Folder Include=".git\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="api\IntegrationTest\ITestActor.cs.meta" />
+    <None Include="api\IntegrationTest\ITestDirector.cs.meta" />
+    <None Include="api\Service\IService.cs.meta" />
+    <None Include="extensions\Device\DeviceInspector.cs.meta" />
+    <None Include="extensions\Device\IDeviceInspector.cs.meta" />
+    <None Include="extensions\Device\IUnityScreen.cs.meta" />
     <None Include="extensions\TouchScript\TapGesture\ITapGestureActor.cs.meta" />
     <None Include="extensions\TouchScript\TapGesture\TapGestureActor.cs.meta" />
     <None Include="extensions\TouchScript\TapGesture\TapGestureDirector.cs.meta" />
+    <None Include="impl\Command\AppLaunchIsDone.cs.meta" />
+    <None Include="impl\IntegrationTest\Input.meta" />
+    <None Include="impl\IntegrationTest\Input\IIntegrationTestScenario.cs.meta" />
+    <None Include="impl\IntegrationTest\Input\IntegrationTestScenario.cs.meta" />
+    <None Include="impl\IntegrationTest\Input\IntegrationTestUseCase.cs.meta" />
+    <None Include="impl\IntegrationTest\TestActor.cs.meta" />
+    <None Include="impl\IntegrationTest\TestDirector.cs.meta" />
+    <None Include="impl\Service\Logger.meta" />
+    <None Include="impl\Service\Logger\DisplayMode.cs.meta" />
+    <None Include="impl\Service\Logger\HollywoodLogger.cs.meta" />
+    <None Include="impl\Service\Logger\IHollywoodLogger.cs.meta" />
+    <None Include="impl\Service\Logger\LogLevel.cs.meta" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>

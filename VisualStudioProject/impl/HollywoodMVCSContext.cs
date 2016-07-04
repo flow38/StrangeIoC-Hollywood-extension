@@ -14,12 +14,16 @@
  *		limitations under the License.
  */
 
+using System;
 using strange.extensions.command.api;
 using strange.extensions.command.impl;
 using strange.extensions.context.api;
 using strange.extensions.context.impl;
 using strange.extensions.hollywood.api;
+using strange.extensions.hollywood.impl.Command;
+using strange.extensions.hollywood.impl.IntegrationTest;
 using strange.extensions.hollywood.impl.UI.Panel;
+using strange.extensions.injector.api;
 using strange.extensions.mediation.api;
 using UnityEngine;
 
@@ -33,15 +37,14 @@ namespace strange.extensions.hollywood.impl
     public class HollywoodMVCSContext : MVCSContext
     {
         protected LaunchAppSignal StartHollywood;
+        protected IHollywoodContextView _hollywoodContextView;
 
-        public HollywoodMVCSContext(MonoBehaviour view) : base(view)
+        public HollywoodMVCSContext(MonoBehaviour view) : base(view, ContextStartupFlags.MANUAL_MAPPING)
         {
-
-        }
-
-        public HollywoodMVCSContext(MonoBehaviour view, ContextStartupFlags flags) : base(view, flags)
-        {
-
+            _hollywoodContextView = view.GetComponent<IHollywoodContextView>();
+            if (_hollywoodContextView == null)
+                throw (new Exception("HollywoodMVCSContext constructor error, there's no IHollywoodContextView instance on context's view !!!"));
+            Start();
         }
 
         // Unbind the default EventCommandBinder and rebind the SignalCommandBinder
@@ -61,10 +64,21 @@ namespace strange.extensions.hollywood.impl
         protected override void mapBindings()
         {
             base.mapBindings();
-            injectionBinder.Bind<IStartDirectorsSignal>().To<StartDirectorsSignal>().ToSingleton();
 
+            //Bind context view (Hollywood services need to get it in order to known if context have already start
+            injectionBinder.Bind<IHollywoodContextView>().To(_hollywoodContextView);
+
+            //Build Context WarmUp &  StartUp Signals...
+            injectionBinder.Bind<ISignal>().To<SimpleSignal>().ToName(HollywoodSignals.Start).ToSingleton();
+            injectionBinder.Bind<ISignal>().To<SimpleSignal>().ToName(HollywoodSignals.WarmUp).ToSingleton();
+            // and Set it to context view 
+            _hollywoodContextView.StartDirectors = injectionBinder.GetInstance<ISignal>(HollywoodSignals.Start);
+            _hollywoodContextView.WarmUpDirectors = injectionBinder.GetInstance<ISignal>(HollywoodSignals.WarmUp);
             //Actor/Director Binding
             mediationBinder.Bind<PanelActor>().To<PanelDirector>();
+
+            //Map signal LaunchAppIsDoneSignal
+            injectionBinder.Bind<LaunchAppIsDoneSignal>().ToSingleton();
         }
 
         public override void AddView(object view)
@@ -95,6 +109,12 @@ namespace strange.extensions.hollywood.impl
             var contView = (contextView as GameObject).GetComponent<ContextView>();
             //mediationBinder.Trigger(MediationEvent.AWAKE, contView);
             injectionBinder.injector.Inject(contView, false);
+
+            //Add AppLaunchIsDone command to launching app command sequence
+            if (injectionBinder.GetBinding<LaunchAppSignal>() != null)
+                commandBinder.GetBinding<LaunchAppSignal>().To<AppLaunchIsDone>();
+            else
+                commandBinder.Bind<LaunchAppSignal>().To<AppLaunchIsDone>();
         }
 
         /// Fires StartHollywood

@@ -49,6 +49,8 @@ namespace strange.extensions.hollywood.api
         /// <returns></returns>
         T GetDirectorComponent<T>(bool lookAtChildren = false) where T : IDirector;
 
+        T GetActorComponent<T>(bool lookAtChildren = false) where T : IActor;
+
         IDirector Director { set; get; }
     }
 }

@@ -62,6 +62,15 @@ namespace strange.extensions.hollywood.impl
             return foundDirector;
         }
 
+        public T GetActorComponent<T>(bool lookAtChildren = false) where T : IActor
+        {
+            T foundActor = GetComponent<T>();
+            if (foundActor == null && lookAtChildren)
+                foundActor = GetComponentInChildren<T>();
+
+            return foundActor;
+        }
+
         public virtual IDirector Director
         {
             get { return _director; }
@@ -164,7 +173,7 @@ namespace strange.extensions.hollywood.impl
             var _l = othersActor.Length;
             for (int i = 0; i < _l; i++)
             {
-                if (othersActor[i] != this && othersActor[i].Director != null && othersActor[i].Director is T)
+                if (othersActor[i] != this && !(othersActor[i] is SingleActor) && othersActor[i].Director != null && othersActor[i].Director is T)
                 {
                     return (T)othersActor[i].Director;
                 }
