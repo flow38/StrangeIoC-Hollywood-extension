@@ -13,11 +13,6 @@ namespace strange.extensions.hollywood.api
     /// </summary>
     public interface IService
     {
-        /// This method is fires when ContextView get its Start() Monobehavior event
-        /// Here, you're sur that all Hollywood actor, Directors and Service exist.
-        /// 
-        /// ASync injection : 
-        /// This method fit particularly to get reference to other Class via Strange injection binder
-        void OnContextStart(IBaseSignal baseSignal, object[] objects);
+
     }
 }
